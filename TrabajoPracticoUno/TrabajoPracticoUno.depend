@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1535879184 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utn.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"utn.h"
+
+1535879184 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utn.h
+
