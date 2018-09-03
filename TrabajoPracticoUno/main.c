@@ -1,7 +1,7 @@
 #include <stdio_ext.h>
 #include <stdlib.h>
 #include "utn.h"
-#include "utnmath.c"
+#include "utnmath.h"
 int main(void)
 {
     float primerOperando = 0;
@@ -11,8 +11,10 @@ int main(void)
     float resultadoDivision;
     int errorEnDivision;
     float resultadoMultiplicacion;
-    float resultadoPrimerFactorial;
-    float resultadoSegundoFactorial;
+    unsigned long long int resultadoPrimerFactorial;
+    unsigned long long int resultadoSegundoFactorial;
+    int errorEnPrimerFactorial;
+    int errorEnSegundoFactorial;
     int salidaDelMenu = 0;
     int operacionesRealizadas = 0;
     char opcionDelMenu;
@@ -28,28 +30,53 @@ int main(void)
         switch(opcionDelMenu)
         {
             case '1':
-                if(utn_getFlotante(&primerOperando, "Ingrese valor de A:\n", "Error en el ingreso\n", 3)==0);
+                if(utn_getFlotante(&primerOperando, "Ingrese valor de A:\n", "Error en el ingreso\n", 3) == 0);
                 {
                     operacionesRealizadas = 0;
                 }
                 break;
             case '2':
-                if(utn_getFlotante(&segundoOperando, "Ingrese valor de B:\n", "Error en el ingreso\n", 3)==0);
+                if(utn_getFlotante(&segundoOperando, "Ingrese valor de B:\n", "Error en el ingreso\n", 3) == 0);
                 {
                     operacionesRealizadas = 0;
                 }
                 break;
             case '3':
-                utnmath_sumarDosFlotantes();
-                utnmath_restarDosFlotantes();
-                utnmath_multiplicarDosFlotantes();
-                utnmath_dividirDosFlotantes();
-                utnmath_realizarFactorial();
-                utnmath_realizarFactorial();
+                resultadoSuma = utnMath_sumarDosFlotantes(primerOperando, segundoOperando);
+                resultadoResta = utnMath_restarDosFlotantes(primerOperando, segundoOperando);
+                errorEnDivision = utnMath_dividirDosFlotantes(primerOperando, segundoOperando, &resultadoDivision);
+                resultadoMultiplicacion = utnMath_multiplicarDosFlotantes(primerOperando, segundoOperando);
+                if(primerOperando % 1)
+                errorEnPrimerFactorial = utnMath_realizarFactorial(primerOperandoEntero, &resultadoPrimerFactorial);
+                errorEnSegundoFactorial = utnMath_realizarFactorial(segundoOperandoEntero, &resultadoSegundoFactorial);
                 operacionesRealizadas = 1;
                 break;
             case '4':
-                printf("h\n");
+                if(operacionesRealizadas == 1)
+                {
+                    printf("El resultado de A+B es: %.5f\n", resultadoSuma);
+                    printf("El resultado de A-B es: %.5f\n", resultadoResta);
+                    utn_imprimirResultadoOErrorEnPantalla(  errorEnDivision,
+                                                            "El resultado de A-B es:\n",
+                                                            resultadoDivision,
+                                                            "No es posible dividir por cero\n",
+                                                            "Se produjo un error\n");
+                    printf("El resultado de A*B es: %.5f\n", resultadoMultiplicacion);
+                    utn_imprimirResultadoOErrorEnPantalla(  errorEnPrimerFactorial,
+                                                            "El factorial de A es:\n",
+                                                            resultadoPrimerFactorial,
+                                                            "No se pudo realizar el factorial\n",
+                                                            "Se produjo un error\n");
+                    utn_imprimirResultadoOErrorEnPantalla(  errorEnSegundoFactorial,
+                                                            "El resultado de A-B es:\n",
+                                                            resultadoPrimerFactorial,
+                                                            "No se pudo realizar el factorial\n",
+                                                            "Se produjo un error\n");
+                }
+                else
+                {
+                    printf("Primero se deben calcular las operaciones\n");
+                }
                 break;
             case '5':
                 salidaDelMenu = 1;
@@ -58,7 +85,7 @@ int main(void)
                 printf("Opcion Incorrecta\n");
                 break;
         }
-        printf("Pulse una tecla para continuar\n");
+        printf("Pulse Enter para continuar\n");
         __fpurge(stdin);
         getchar();
     }

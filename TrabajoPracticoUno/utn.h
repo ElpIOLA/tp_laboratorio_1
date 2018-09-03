@@ -44,3 +44,9 @@ int utn_copiarCadenaEnOtraCadena(char *pCadenaInicial, char *pCadenaCopiada);
 int utn_obtenerLongitudCadena(char *cadenaIngresada);
 
 int utn_validarMail(char *pPosibleMail);
+
+void utn_imprimirResultadoOErrorEnPantalla( int opcionAMostrar,
+                                        char mensajeResultado[],
+                                        float resultado,
+                                        char mensajeNoExiteResultado[],
+                                        char mensajeError[]);

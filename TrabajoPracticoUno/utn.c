@@ -430,6 +430,33 @@ int utn_validarMail(char *pPosibleMail)
     }
     return retorno;
 }
+/**
+* \brief imprime un resultado, el error producido en la operacion o un error en caso de que se pase otro valor
+* \param opcionAMostrar Debe valer 0 o 1 para que el usuario la vea
+* \param mensajeResultado mensaje que se muestra cuando opcionAMostrar es 0
+* \param mensajeNoExisteResultado mensaje que se muestra cuando opcionAMostrar es 1
+* \param mensajeError mensaje que se muestra cuando opcionAMostrar es distinta de 0 y 1
+*
+*/
+void utn_imprimirResultadoOErrorEnPantalla( int opcionAMostrar,
+                                        char mensajeResultado[],
+                                        float resultado,
+                                        char mensajeNoExiteResultado[],
+                                        char mensajeError[])
+{
+    if(opcionAMostrar == 0)
+    {
+        printf("%s %f", mensajeResultado, resultado);
+    }
+    else if(opcionAMostrar == 1)
+    {
+        printf("%s", mensajeNoExiteResultado);
+    }
+    else
+    {
+        printf("%s", mensajeError);
+    }
+}
 
 
 
