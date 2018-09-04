@@ -30,13 +30,13 @@ int main(void)
         switch(opcionDelMenu)
         {
             case '1':
-                if(utn_getFlotante(&primerOperando, "Ingrese valor de A:\n", "Error en el ingreso\n", 3) == 0);
+                if(utn_getFlotante(&primerOperando, "Ingrese valor de A:\n", "Error en el ingreso\n", 3) == 0)
                 {
                     operacionesRealizadas = 0;
                 }
                 break;
             case '2':
-                if(utn_getFlotante(&segundoOperando, "Ingrese valor de B:\n", "Error en el ingreso\n", 3) == 0);
+                if(utn_getFlotante(&segundoOperando, "Ingrese valor de B:\n", "Error en el ingreso\n", 3) == 0)
                 {
                     operacionesRealizadas = 0;
                 }
@@ -46,9 +46,8 @@ int main(void)
                 resultadoResta = utnMath_restarDosFlotantes(primerOperando, segundoOperando);
                 errorEnDivision = utnMath_dividirDosFlotantes(primerOperando, segundoOperando, &resultadoDivision);
                 resultadoMultiplicacion = utnMath_multiplicarDosFlotantes(primerOperando, segundoOperando);
-                if(primerOperando % 1)
-                errorEnPrimerFactorial = utnMath_realizarFactorial(primerOperandoEntero, &resultadoPrimerFactorial);
-                errorEnSegundoFactorial = utnMath_realizarFactorial(segundoOperandoEntero, &resultadoSegundoFactorial);
+                errorEnPrimerFactorial = utnMath_realizarFactorialConFlotante(primerOperando, &resultadoPrimerFactorial);
+                errorEnSegundoFactorial = utnMath_realizarFactorialConFlotante(segundoOperando, &resultadoSegundoFactorial);
                 operacionesRealizadas = 1;
                 break;
             case '4':
@@ -56,22 +55,22 @@ int main(void)
                 {
                     printf("El resultado de A+B es: %.5f\n", resultadoSuma);
                     printf("El resultado de A-B es: %.5f\n", resultadoResta);
-                    utn_imprimirResultadoOErrorEnPantalla(  errorEnDivision,
-                                                            "El resultado de A-B es:\n",
-                                                            resultadoDivision,
-                                                            "No es posible dividir por cero\n",
-                                                            "Se produjo un error\n");
+                    utn_imprimirResultadoFloatOErrorEnPantalla( errorEnDivision,
+                                                                "El resultado de A/B es:",
+                                                                resultadoDivision,
+                                                                "No es posible dividir por cero",
+                                                                "Se produjo un error");
                     printf("El resultado de A*B es: %.5f\n", resultadoMultiplicacion);
-                    utn_imprimirResultadoOErrorEnPantalla(  errorEnPrimerFactorial,
-                                                            "El factorial de A es:\n",
-                                                            resultadoPrimerFactorial,
-                                                            "No se pudo realizar el factorial\n",
-                                                            "Se produjo un error\n");
-                    utn_imprimirResultadoOErrorEnPantalla(  errorEnSegundoFactorial,
-                                                            "El resultado de A-B es:\n",
-                                                            resultadoPrimerFactorial,
-                                                            "No se pudo realizar el factorial\n",
-                                                            "Se produjo un error\n");
+                    utn_imprimirResultadoLongLongOErrorEnPantalla(  errorEnPrimerFactorial,
+                                                                    "El factorial de A es:",
+                                                                    resultadoPrimerFactorial,
+                                                                    "No se pudo realizar el factorial",
+                                                                    "Se produjo un error");
+                    utn_imprimirResultadoLongLongOErrorEnPantalla(  errorEnSegundoFactorial,
+                                                                    "El factorial de B es:",
+                                                                    resultadoSegundoFactorial,
+                                                                    "No se pudo realizar el factorial",
+                                                                    "Se produjo un error");
                 }
                 else
                 {

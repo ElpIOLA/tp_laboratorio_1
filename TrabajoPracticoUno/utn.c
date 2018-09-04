@@ -434,27 +434,56 @@ int utn_validarMail(char *pPosibleMail)
 * \brief imprime un resultado, el error producido en la operacion o un error en caso de que se pase otro valor
 * \param opcionAMostrar Debe valer 0 o 1 para que el usuario la vea
 * \param mensajeResultado mensaje que se muestra cuando opcionAMostrar es 0
+* \param resultado Es el flotante que muestra el resultado obtenido
 * \param mensajeNoExisteResultado mensaje que se muestra cuando opcionAMostrar es 1
 * \param mensajeError mensaje que se muestra cuando opcionAMostrar es distinta de 0 y 1
 *
 */
-void utn_imprimirResultadoOErrorEnPantalla( int opcionAMostrar,
-                                        char mensajeResultado[],
-                                        float resultado,
-                                        char mensajeNoExiteResultado[],
-                                        char mensajeError[])
+void utn_imprimirResultadoFloatOErrorEnPantalla(int opcionAMostrar,
+                                                char mensajeResultado[],
+                                                float resultado,
+                                                char mensajeNoExiteResultado[],
+                                                char mensajeError[])
 {
     if(opcionAMostrar == 0)
     {
-        printf("%s %f", mensajeResultado, resultado);
+        printf("%s %.5f\n", mensajeResultado, resultado);
     }
     else if(opcionAMostrar == 1)
     {
-        printf("%s", mensajeNoExiteResultado);
+        printf("%s\n", mensajeNoExiteResultado);
     }
     else
     {
-        printf("%s", mensajeError);
+        printf("%s\n", mensajeError);
+    }
+}
+/**
+* \brief imprime un resultado, el error producido en la operacion o un error en caso de que se pase otro valor
+* \param opcionAMostrar Debe valer 0 o 1 para que el usuario la vea
+* \param mensajeResultado mensaje que se muestra cuando opcionAMostrar es 0
+* \param resultado Muestra el resultado obtenido si la operacion es correcta
+* \param mensajeNoExisteResultado mensaje que se muestra cuando opcionAMostrar es 1
+* \param mensajeError mensaje que se muestra cuando opcionAMostrar es distinta de 0 y 1
+*
+*/
+void utn_imprimirResultadoLongLongOErrorEnPantalla( int opcionAMostrar,
+                                                    char mensajeResultado[],
+                                                    unsigned long long int resultado,
+                                                    char mensajeNoExiteResultado[],
+                                                    char mensajeError[])
+{
+    if(opcionAMostrar == 0)
+    {
+        printf("%s %llu\n", mensajeResultado, resultado);
+    }
+    else if(opcionAMostrar == 1)
+    {
+        printf("%s\n", mensajeNoExiteResultado);
+    }
+    else
+    {
+        printf("%s\n", mensajeError);
     }
 }
 

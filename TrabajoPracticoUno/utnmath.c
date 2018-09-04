@@ -15,7 +15,6 @@ float utnMath_sumarDosFlotantes(float numeroUno, float numeroDos)
     resultadoSuma = numeroUno + numeroDos;
     return resultadoSuma;
 }
-
 /**
 * \brief Resta numeros con decimales
 * \param numeroUno Minuendo de la resta
@@ -29,7 +28,6 @@ float utnMath_restarDosFlotantes(float numeroUno, float numeroDos)
     resultadoResta = numeroUno - numeroDos;
     return resultadoResta;
 }
-
 /**
 * \brief Multiplica numeros con decimales
 * \param numeroUno Primer factor
@@ -81,39 +79,49 @@ unsigned long long int utnMath_obternerResultadoFactorial(int numero)
     return resultado;
 }
 /**
-* \brief Realiza el factorial de un entero
-* \param numero Es el numero en el que se realiza el factorial
+* \brief Realiza el factorial de un flotante
+* \param numero Es el numero en el que se evalua si se puede realizar el factorial
 * \param resultadoFactorial Es el resultado que se obtiene si es posible realizar el factorial
 * \return Devuelve un 0 si la operacion se realizo con exito o un 1 si no se puede realizar el factorial
 */
-int utnMath_realizarFactorial(int numero, unsigned long long int *resultadoFactorial)
+int utnMath_realizarFactorialConFlotante(float numero, unsigned long long int *resultadoFactorial)
 {
     unsigned long long int resultadoParcial;
+    int numeroEntero;
     int retorno;
-    if(numero < 0)
+    if((numero - (int)numero) == 0)
     {
-        printf("No se puede realizar el factorial de un numero negativo\n");
-        retorno = 1;
-    }
-    else if(numero == 0)
-    {
-        *resultadoFactorial = 1;
-        retorno = 0;
-    }
-    else if(numero > 0 && numero <=20)
-    {
-        resultadoParcial = utnMath_obternerResultadoFactorial(numero);
-        *resultadoFactorial = resultadoParcial;
-        retorno = 0;
-    }
-    else if(numero >20)
-    {
-        printf("El numero es demasiado grande, solo es posible hasta el 20\n");
-        retorno = 1;
+        numeroEntero = (int)numero;
+        if(numeroEntero < 0)
+        {
+            printf("No se puede realizar el factorial de un numero negativo\n");
+            retorno = 1;
+        }
+        else if(numeroEntero == 0)
+        {
+            *resultadoFactorial = 1;
+            retorno = 0;
+        }
+        else if(numeroEntero > 0 && numeroEntero <=20)
+        {
+            resultadoParcial = utnMath_obternerResultadoFactorial(numeroEntero);
+            *resultadoFactorial = resultadoParcial;
+            retorno = 0;
+        }
+        else if(numero > 20)
+        {
+            printf("El numero es demasiado grande, solo es posible hasta el factorial de 20\n");
+            retorno = 1;
+        }
+        else
+        {
+            printf("No se pudo realizar el factorial\n");
+            retorno = 1;
+        }
     }
     else
     {
-        printf("No se pudo realizar el factorial\n");
+        printf("No se puede realizar el factorial de un numero decimal\n");
         retorno = 1;
     }
     return retorno;

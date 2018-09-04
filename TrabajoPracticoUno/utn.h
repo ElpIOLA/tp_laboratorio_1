@@ -45,8 +45,14 @@ int utn_obtenerLongitudCadena(char *cadenaIngresada);
 
 int utn_validarMail(char *pPosibleMail);
 
-void utn_imprimirResultadoOErrorEnPantalla( int opcionAMostrar,
-                                        char mensajeResultado[],
-                                        float resultado,
-                                        char mensajeNoExiteResultado[],
-                                        char mensajeError[]);
+void utn_imprimirResultadoFloatOErrorEnPantalla(int opcionAMostrar,
+                                                char mensajeResultado[],
+                                                float resultado,
+                                                char mensajeNoExiteResultado[],
+                                                char mensajeError[]);
+
+void utn_imprimirResultadoLongLongOErrorEnPantalla( int opcionAMostrar,
+                                                    char mensajeResultado[],
+                                                    unsigned long long int resultado,
+                                                    char mensajeNoExiteResultado[],
+                                                    char mensajeError[]);
