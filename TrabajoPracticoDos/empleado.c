@@ -3,12 +3,24 @@
 #include <string.h>
 #include "utn.h"
 #include "empleado.h"
+/**
+* \brief    Se utiliza esta funcion para obtener un nuevo id
+*           declarando una variable static para el id y suma 1 al anterior
+* \return devuelve un id nuevo
+*/
 static int getNextId()
 {
     static int ultimoId=-1;
     ultimoId++;
     return ultimoId;
 }
+/**
+* \brief    Se utiliza esta funcion para obtener el primer lugar libre de un array de tipo empleado,
+*           recorriendo el array hasta encontrar un isEmpty en 1
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \return devuelve el indice de la posicion libre, sino el return es -1.
+*/
 static int getLugarLibre(Empleado* array, int len)
 {
     int retorno = -1;
@@ -26,6 +38,12 @@ static int getLugarLibre(Empleado* array, int len)
     }
     return retorno;
 }
+/**
+* \brief compara a los empleados, primero por apellido y en caso de coincidir, por sector
+* \param arrayUno es el primer empleado que se va a comparar
+* \param arrayDos es el segundo empleado que se va a comparar
+* \return si el primero es mayor devuelve 0(para que se realice el swap), si no -1
+*/
 static int comparacionApellidoSector(Empleado* arrayUno, Empleado* arrayDos)
 {
     int retorno=-1;
@@ -39,6 +57,13 @@ static int comparacionApellidoSector(Empleado* arrayUno, Empleado* arrayDos)
     }
     return retorno;
 }
+/**
+* \brief    Se utiliza esta funcion para inicializar un array de tipo empleado,
+*           recorriendo el array y poniendo cada isEmpty en 1
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \return El retorno es 0 si se realizo de manera correcta, si no el retorno es -1.
+*/
 int empleado_init(Empleado* array, int len)
 {
     int retorno = -1;
@@ -53,7 +78,16 @@ int empleado_init(Empleado* array, int len)
     }
     return retorno;
 }
-Empleado* empleado_getById(Empleado* array, int len,int id)
+/**
+* \brief    Se utiliza esta funcion para encontrar un empleado a través de un id,
+*           recorriendo el array y comparando los id (donde el isEmpty es 0)
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \param id Es el id con que se compara cada id del array
+* \return   retorna la direccion de la struct del empleado donde se encontro el id,
+*           si no el retorno es NULL.
+*/
+Empleado* empleado_getById(Empleado* array, int len, int id)
 {
     Empleado* retorno = NULL;
     int i;
@@ -70,6 +104,14 @@ Empleado* empleado_getById(Empleado* array, int len,int id)
     }
     return retorno;
 }
+/**
+* \brief    Se utiliza esta funcion para dar de alta un empleado generando un id
+*           de manera automatica y el usuario introduce el resto de datos,
+*           si se realiza todo correctamente se guardan los datos y se coloca el isEmpty en 0
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \return El retorno es 0 si se realizo de manera correcta, si no el retorno es -1.
+*/
 int empleado_alta(Empleado* array, int len)
 {
     int retorno = -1;
@@ -96,6 +138,15 @@ int empleado_alta(Empleado* array, int len)
     }
     return retorno;
 }
+/**
+* \brief    Se utiliza esta funcion para modificar un empleado,
+*           el usuario elige a traves de un menu
+*           que dato modificar o modificarlos todos
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \param reintentos Veces que el usuario podra volver a introducir el id
+* \return El retorno es 0 si se realizo de manera correcta, si no el retorno es -1.
+*/
 int empleado_modificar(Empleado* array, int len, int reintentos)
 {
     int retorno = -1;
@@ -182,6 +233,15 @@ int empleado_modificar(Empleado* array, int len, int reintentos)
     }
     return retorno;
 }
+/**
+* \brief    Se utiliza esta funcion para dar de baja (baja logica) un empleado,
+*           el usuario introduce el id, se le muestra el empleado y
+*           confirma la baja(se coloca el isEmpty en 1)
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \param reintentos Veces que el usuario podra volver a introducir el id
+* \return El retorno es 0 si se realizo de manera correcta, si no el retorno es -1.
+*/
 int empleado_baja(Empleado* array, int len, int reintentos)
 {
     int retorno = -1;
@@ -216,6 +276,13 @@ int empleado_baja(Empleado* array, int len, int reintentos)
     }
     return retorno;
 }
+/**
+* \brief    Se utiliza esta funcion para mostrar todos los datos de los
+*           empleados del array (nombre, apellidos, salario, sector, id)
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \return El retorno es 0 si se mostraron los datos, si no el retorno es -1.
+*/
 int empleado_mostrar(Empleado* array, int len)
 {
     int retorno = -1;
@@ -234,25 +301,47 @@ int empleado_mostrar(Empleado* array, int len)
     }
     return retorno;
 }
+/**
+* \brief    Se utiliza esta funcion para cargar los datos de un
+*           empleado del array (nombre, apellidos, salario, sector)
+*           el id se genera de manera automatica y se pone el isEmpty en 0
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \return El retorno es 0 si se mostraron los datos, si no el retorno es -1.
+*/
 int empleado_ingresoForzado(Empleado* array, int len, char *nombre, char *apellido, float salario, int sector)
 {
+    int retorno = -1;
     int indice;
     indice = getLugarLibre(array,len);
-    strncpy(array[indice].nombre, nombre, 51);
-    strncpy(array[indice].apellido, apellido, 51);
-    array[indice].salario = salario;
-    array[indice].sector = sector;
-    array[indice].idEmpleado = getNextId();
-    array[indice].isEmpty = 0;
-    return 0;
+    if( array != NULL && len > 0 && nombre != NULL &&
+        apellido != NULL && salario > 0 && sector > 0)
+    {
+        strncpy(array[indice].nombre, nombre, 51);
+        strncpy(array[indice].apellido, apellido, 51);
+        array[indice].salario = salario;
+        array[indice].sector = sector;
+        array[indice].idEmpleado = getNextId();
+        array[indice].isEmpty = 0;
+        retorno = 0;
+    }
+    return retorno;
 }
+/**
+* \brief    ordena un array de empleados por insercion, por 2 criterios,
+*           primero por apellido y en caso de coincidir, por sector
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \param orden El orden debe ser 0 (Ascendente) o 1 (Descendente)
+* \return El retorno es 0 si se realizo el ordenamiento, si no el retorno es -1.
+*/
 int empleado_sortEmpleadosPorApellidoSector(Empleado *array, int len, int orden)
 {
     Empleado auxiliar;
     int retorno=-1;
     int i;
     int j;
-    if(array != NULL && len > 0)
+    if(array != NULL && len > 0 && (orden == 0 || orden == 1))
     {
         for(i=1; i < len; i++)
         {
@@ -281,6 +370,15 @@ int empleado_sortEmpleadosPorApellidoSector(Empleado *array, int len, int orden)
     }
     return retorno;
 }
+/**
+* \brief    Calcula el total de los salarios, el promedio
+*           y la cantidad de empleados que superan el promedio.
+*           Solo evalua los empleados que tienen el isEmpty en 0.
+*           Finalmente muestra toda esa informacion
+* \param array Es el array que se recorre
+* \param len Es el limite de empleados que puede guardar el array
+* \return El retorno es 0 si se mostro la informacion, si no el retorno es -1.
+*/
 int empleado_informacionEmpleados(Empleado *array, int len)
 {
     int retorno=-1;

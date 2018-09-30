@@ -65,8 +65,8 @@ static int isValidAlfabetico(char *pBuffer, int limite)
     return retorno;
 }
 /**
-* \brief Evalua si es un nombre, solo puede tener un espacio y cada nombre
-debe empezar por mayuscula y el resto minusculas (Jose)(Jose Maria)(Lopez)(Lopez Gomez)
+* \brief    Evalua si es un nombre, solo puede tener un espacio y cada nombre
+*           debe empezar por mayuscula y el resto minusculas (Jose)(Jose Maria)(Lopez)(Lopez Gomez)
 * \param pBuffer Es la cadena que evaluamos
 * \param limite Es el tamano maximo del string
 * \return En caso de exito retorna 1, si no 0
