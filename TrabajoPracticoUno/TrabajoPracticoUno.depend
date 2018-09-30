@@ -1,16 +1,22 @@
 # depslib dependency file v1.0
-1536003738 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utn.c
+1538321355 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utn.c
 	<stdio_ext.h>
 	<stdlib.h>
 	"utn.h"
 
-1536003648 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utn.h
+1538321355 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utn.h
 
-1536008162 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utnmath.c
+1538321355 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utnmath.c
 	<stdio_ext.h>
 	<stdlib.h>
 	"utn.h"
 	"utnmath.h"
 
-1536006969 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utnmath.h
+1538321355 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/utnmath.h
+
+1538321355 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoUno/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"utn.h"
+	"utnmath.h"
 
