@@ -123,10 +123,12 @@ int empleado_alta(Empleado* array, int len)
     indice = getLugarLibre(array,len);
     if( array != NULL && len > 0 && indice >= 0 &&
         indice < len && array[indice].isEmpty &&
-        !utn_getNombre(nombre, 51,"Nombre empleado?\n","nombre no valido\n",2) &&
-        !utn_getNombre(apellido, 51,"Apellido empleado?\n","apellido no valido\n",2) &&
+        !utn_getNombre( nombre, 51,"Nombre empleado?\n",
+                        "nombre no valido\nDebe empezar por mayuscula y el resto minusculas\n",2) &&
+        !utn_getNombre( apellido, 51,"Apellido empleado?\n",
+                        "apellido no valido\nDebe empezar por mayuscula y el resto minusculas\n",2) &&
         !utn_getFloatPositivo(&salario, 10,"Salario empleado?\n","salario no valido\n",2) &&
-        !utn_getEnteroPositivo(&sector, 4, "Sector empleado?\n", "sector no valido", 2))
+        !utn_getEnteroSoloNumeros(&sector, 4, "Sector empleado?\n", "sector no valido", 2))
     {
         strncpy(array[indice].nombre, nombre,51);
         strncpy(array[indice].apellido, apellido, 51);
@@ -182,18 +184,20 @@ int empleado_modificar(Empleado* array, int len, int reintentos)
                "3. Modificar salario\n"
                "4. Modificar sueldo\n"
                "5. Modificar todos los datos\n");
-        utn_getEnteroPositivo(&elegirOpcion, 5, "Seleccione...\n", "", 0);
+        utn_getEnteroSoloNumeros(&elegirOpcion, 5, "Seleccione...\n", "", 0);
         switch(elegirOpcion)
         {
             case 1:
-                if(!utn_getNombre(nombre, 51,"Nombre empleado?\n","nombre no valido\n",2))
+                if( !utn_getNombre(nombre, 51,"Nombre empleado?\n",
+                    "nombre no valido\nDebe empezar por mayuscula y el resto minusculas\n",2))
                 {
                     strncpy(empleadoModificado->nombre, nombre, 51);
                     retorno = 0;
                 }
                 break;
             case 2:
-                if(!utn_getNombre(apellido, 51,"Apellido empleado?\n","apellido no valido\n",2))
+                if( !utn_getNombre( apellido, 51,"Apellido empleado?\n",
+                    "apellido no valido\nDebe empezar por mayuscula y el resto minusculas\n",2))
                 {
                     strncpy(empleadoModificado->apellido, apellido, 51);
                     retorno = 0;
@@ -207,17 +211,19 @@ int empleado_modificar(Empleado* array, int len, int reintentos)
                 }
                 break;
             case 4:
-                if(!utn_getEnteroPositivo(&sector, 4, "Sector empleado?\n", "sector no valido", 2))
+                if(!utn_getEnteroSoloNumeros(&sector, 4, "Sector empleado?\n", "sector no valido", 2))
                 {
                     empleadoModificado->sector = sector;
                     retorno = 0;
                 }
                 break;
             case 5:
-                if( !utn_getNombre(nombre, 51,"Nombre empleado?\n","nombre no valido\n",2) &&
-                    !utn_getNombre(apellido, 51,"Apellido empleado?\n","apellido no valido\n",2) &&
+                if( !utn_getNombre( nombre, 51,"Nombre empleado?\n",
+                    "nombre no valido\nDebe empezar por mayuscula y el resto minusculas\n",2) &&
+                    !utn_getNombre( apellido, 51,"Apellido empleado?\n",
+                    "apellido no valido\nDebe empezar por mayuscula y el resto minusculas\n",2) &&
                     !utn_getFloatPositivo(&salario, 10,"Salario empleado?\n","salario no valido\n",2) &&
-                    !utn_getEnteroPositivo(&sector, 4, "Sector empleado?\n", "sector no valido", 2))
+                    !utn_getEnteroSoloNumeros(&sector, 4, "Sector empleado?\n", "sector no valido", 2))
                 {
                     strncpy(empleadoModificado->nombre, nombre, 51);
                     strncpy(empleadoModificado->apellido, apellido, 51);

@@ -195,7 +195,7 @@ static int isValidEnteroSoloNumeros(char *pBuffer, int limite)
     if (pBuffer != NULL && limite > 0 && strlen(pBuffer) > 0)
     {
         retorno = 1;
-        for(i=1; i < limite && pBuffer[i] != '\0'; i++)
+        for(i=0; i < limite && pBuffer[i] != '\0'; i++)
         {
             if (!(pBuffer[i]>='0' && pBuffer[i]<='9'))
             {
@@ -698,8 +698,8 @@ int utn_getAlfabetico(  char *pAlfabetico, int limite, char *mensaje,
     return retorno;
 }
 /**
-* \brief Toma una cadena y evalua si es un nombre, solo puede tener un espacio y cada nombre
-debe empezar por mayuscula y el resto minusculas (Jose)(Jose Maria)(Lopez)(Lopez Gomez)
+* \brief    Toma una cadena y evalua si es un nombre, solo puede tener un espacio y cada nombre
+*           debe empezar por mayuscula y el resto minusculas (Jose)(Jose Maria)(Lopez)(Lopez Gomez)
 * \param pNombre Recibe el texto ingresado en caso de exito
 * \param limite Es el tamano maximo del string
 * \param mensaje Es el mensaje que se muestra al usuario antes de introducir datos
@@ -851,7 +851,7 @@ int utn_getEntero(  int *pEntero, int limite, char *mensaje,
     return retorno;
 }
 /**
-* \brief Toma una cadena y evalua si es un entero positivo
+* \brief Toma una cadena y evalua si es un entero sin signo
 * \param pEntero Recibe el numero ingresado en caso de exito
 * \param limite Es el numero de cifras
 * \param mensaje Es el mensaje que se muestra al usuario antes de introducir datos
@@ -860,8 +860,8 @@ int utn_getEntero(  int *pEntero, int limite, char *mensaje,
 * \return En caso de exito retorna 0, si no -1
 *
 */
-int utn_getEnteroPositivo(  int *pEntero, int limite, char *mensaje,
-                            char *mensajeError, int reintentos)
+int utn_getEnteroSoloNumeros(   int *pEntero, int limite, char *mensaje,
+                                char *mensajeError, int reintentos)
 {
     int retorno=-1;
     char bufferEntero[4096];
