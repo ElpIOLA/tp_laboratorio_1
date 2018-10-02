@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1538347773 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoDos/utn.c
+1538449679 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoDos/utn.c
 	<stdio_ext.h>
 	<stdlib.h>
 	<string.h>
@@ -8,7 +8,7 @@
 
 1538347773 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoDos/utn.h
 
-1538347124 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoDos/empleado.c
+1538429237 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoDos/empleado.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

@@ -25,14 +25,21 @@ static int getString(char *pBuffer, int limite)
     if(pBuffer != NULL && limite > 0 )
     {
         myFpurge();
-        fgets(bufferString, limite, stdin);
+        fgets(bufferString, 4096, stdin);
         len = strlen(bufferString);
-        if(len != limite-1 || bufferString[limite-2] == '\n')
+        if(len <= limite)
         {
-            bufferString[len-1] = '\0';
+            if(len != limite-1 || bufferString[limite-2] == '\n')
+            {
+                bufferString[len-1] = '\0';
+            }
+            strncpy(pBuffer, bufferString, limite);
+            retorno = 0;
         }
-        strncpy(pBuffer, bufferString, limite);
-        retorno = 0;
+        else
+        {
+            printf("Se admite un maximo de %d caracteres\n", limite - 1);
+        }
     }
     return retorno;
 }
