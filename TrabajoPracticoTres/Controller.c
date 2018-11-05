@@ -64,7 +64,6 @@ int controller_init()
         getchar();
     }while(option != 10);
     return 0;
-
 }
 
 
@@ -120,7 +119,17 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
-    return employee_add(pArrayListEmployee);
+    int retorno;
+    retorno = employee_add(pArrayListEmployee);
+    if(!retorno)
+    {
+        printf("\nLos datos han sido cargados correctamente");
+    }
+    else
+    {
+        printf("\nNo se pudo cargar el empleado");
+    }
+    return retorno;
 }
 
 /** \brief Modificar datos de empleado
@@ -130,12 +139,19 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
- //intentar hacerlo un poco mas copado
- //le mostras lo q tiene cada campo y si lo quiere cambiar
- //le muestra el nuevo y el viejo, y que confirme si desea cambiar
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int retorno;
+    retorno = employee_edit(pArrayListEmployee);
+    if(!retorno)
+    {
+        printf("\nEl empleado fue editado");
+    }
+    else
+    {
+        printf("\nNo se edito el empleado");
+    }
+    return retorno;
 }
 
 /** \brief Baja de empleado
@@ -145,10 +161,19 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
- //ll_remove hace la baja fisica, pero  no es obligatorio usarla???
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int retorno;
+    retorno = employee_remove(pArrayListEmployee);
+    if(!retorno)
+    {
+        printf("\nEl empleado fue dado de baja");
+    }
+    else
+    {
+        printf("\nNo se pudo dar de baja el empleado");
+    }
+    return retorno;
 }
 
 /** \brief Listar empleados
@@ -160,7 +185,14 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
-    return employee_list(pArrayListEmployee);
+    int retorno;
+    retorno = employee_list(pArrayListEmployee);
+    if(retorno != 0)
+    {
+        printf("\nNo se pudo mostrar la informacion");
+    }
+    return retorno;
+
 }
 
 /** \brief Ordenar empleados
@@ -172,7 +204,17 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-    return employee_sort(pArrayListEmployee);
+    int retorno;
+    retorno = employee_sort(pArrayListEmployee);
+    if(!retorno)
+    {
+        printf("\nOrdenamiento realizado correctamente");
+    }
+    else
+    {
+        printf("\nNo se realizo el ordenamiento");
+    }
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).

@@ -56,8 +56,50 @@ static int isValidSueldo(char *pBuffer, int limite)
     return retorno;
 }
 
+int employee_getNextId()
+{
+    static int ultimoId = -1;
+    ultimoId++;
+    return ultimoId;
+}
+int employee_getById(LinkedList* pArrayListEmployee, int* index)
+{
+    int retorno = -1;
+    int id;
+    if(pArrayListEmployee != NULL)
+    {
+        employee_list(pArrayListEmployee);
+        if( !utn_getEntero(&id, 10, "\nIntroduzca el Id: ", "", 0) &&
+            !employee_getIndexById(pArrayListEmployee, id, index))
+        {
+            retorno = 0;
+        }
+    }
+    return retorno;
 
-
+}
+int employee_getIndexById(LinkedList* pArrayListEmployee,int id, int* index)
+{
+    int retorno = -1;
+    Employee* pEmpleado;
+    int bufferId;
+    int i;
+    if(pArrayListEmployee != NULL)
+    {
+        for(i=0;i < ll_len(pArrayListEmployee);i++)
+        {
+            pEmpleado = ll_get(pArrayListEmployee,i);
+            employee_getId(pEmpleado,&bufferId);
+            if(bufferId == id)
+            {
+                *index = ll_indexOf(pArrayListEmployee, pEmpleado);
+                retorno = 0;
+                break;
+            }
+        }
+    }
+    return retorno;
+}
 
 
 int employee_setId(Employee* this,int id)
@@ -68,7 +110,6 @@ int employee_setId(Employee* this,int id)
         this->id=id;
         retorno=0;
     }
-    //printf("retorno = %d\n",retorno);
     return retorno;
 }
 
@@ -129,22 +170,41 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 
 int employee_setSueldo(Employee* this,int sueldo)
 {
-    int retorno=-1;
+    int retorno = -1;
     if(this!=NULL)
     {
         this->sueldo=sueldo;
-        retorno=0;
+        retorno = 0;
     }
     return retorno;
 }
 
 int employee_getSueldo(Employee* this,int* sueldo)
 {
-    int retorno=-1;
+    int retorno = -1;
     if(this!=NULL)
     {
         *sueldo=this->sueldo;
-        retorno=0;
+        retorno = 0;
+    }
+    return retorno;
+}
+int employee_showInfo(Employee* this)
+{
+    int retorno = -1;
+    int bufferId;
+    char bufferNombre[128];
+    int bufferHorasTrabajadas;
+    int bufferSueldo;
+    if(this!=NULL)
+    {
+        employee_getId(this, &bufferId);
+        employee_getNombre(this, bufferNombre);
+        employee_getHorasTrabajadas(this, &bufferHorasTrabajadas);
+        employee_getSueldo(this, &bufferSueldo);
+        printf( "\nId: %d - Nombre: %s - Horas: %d - Sueldo: %d",
+                bufferId,bufferNombre,bufferHorasTrabajadas,bufferSueldo);
+        retorno = 0;
     }
     return retorno;
 }
@@ -174,7 +234,6 @@ Employee* employee_newConParametros(char* idString,char* nombre,int lenNombre,
     int idInt = atoi(idString);
     int horasTrabajadasInt = atoi(horasTrabajadasString);
     int sueldoInt = atoi(sueldoString);
-    //printf("id = %d      id = %s\n",idInt,idString);
     if( isValidId(idString,20) &&
         isValidNombre(nombre,lenNombre) &&
         isValidHorasTrabajadas(horasTrabajadasString,20) &&
@@ -184,57 +243,109 @@ Employee* employee_newConParametros(char* idString,char* nombre,int lenNombre,
         !employee_setHorasTrabajadas(this,horasTrabajadasInt)&&
         !employee_setSueldo(this,sueldoInt))
     {
-        printf("lololo\n");
         retorno = this;
     }
     else
     {
-        printf("holiwis\n");
         employee_delete(this);
     }
     return retorno;
 }
-//falta el id automatico
 int employee_add(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
     Employee* pEmpleado;
-    char bufferId[20];
+    char bufferIdString[20];
+    int bufferIdInt;
     char bufferNombre[128];
     char bufferHorasTrabajadas[20];
     char bufferSueldo[20];
-    if(pArrayListEmployee != NULL)
+    if( pArrayListEmployee != NULL &&
+        !utn_getTexto(  bufferNombre,128,"\nIntroduzca nombre del empleado: ","",0) &&
+        !utn_getTexto(  bufferHorasTrabajadas,20,"\nIntroduzca horas trabajadas del empleado: ", "",0) &&
+        !utn_getTexto(  bufferSueldo,20,"\nIntroduzca sueldo del empleado: ","",0))
     {
-        if( !utn_getTexto(bufferId,20,"","",0) &&
-            !utn_getTexto(bufferNombre,128,"","",0) &&
-            !utn_getTexto(bufferId,20,"","",0) &&
-            !utn_getTexto(bufferSueldo,20,"","",0))
+        bufferIdInt = employee_getNextId();
+        snprintf(bufferIdString, 20*sizeof(char), "%d", bufferIdInt);
+        pEmpleado = employee_newConParametros(  bufferIdString,bufferNombre, 128,
+                                                bufferHorasTrabajadas,bufferSueldo);
+        if(pEmpleado != NULL)
         {
-            pEmpleado = employee_newConParametros(  bufferId,bufferNombre, 128,
-                                                    bufferHorasTrabajadas,bufferSueldo);
-            if(pEmpleado != NULL)
-            {
-                //printf("holis\n");
-                ll_add(pArrayListEmployee, pEmpleado);
-                retorno = 0;
-            }
+            ll_add(pArrayListEmployee, pEmpleado);
+            retorno = 0;
         }
     }
     return retorno;
-
 }
+int employee_edit(LinkedList* pArrayListEmployee)
+{
+    int retorno = -1;
+    Employee* pEmpleado;
+    int indexEmpleado;
+    if( pArrayListEmployee != NULL &&
+        !employee_getById(pArrayListEmployee,&indexEmpleado))
+    {
+        pEmpleado = ll_get(pArrayListEmployee, indexEmpleado);
+        if( !employee_confirmEditOrRemove(pEmpleado))
+        {
+            //employee_menuEdicion
 
 
 
+
+/*if( !utn_getTexto(  bufferNombre,128,"\nIntroduzca nombre del empleado: ","",0) &&
+    !utn_getTexto(  bufferHorasTrabajadas,20,"\nIntroduzca horas trabajadas del empleado: ", "",0) &&
+    !utn_getTexto(  bufferSueldo,20,"\nIntroduzca sueldo del empleado: ","",0))
+{
+    employee_setNombre(pEmpleado, buffer)
+    if(pEmpleado != NULL)
+    {
+        ll_add(pArrayListEmployee, pEmpleado);
+        retorno = 0;
+    }
+}*/
+
+         //
+        }
+    }
+    return retorno;
+}
+int employee_remove(LinkedList* pArrayListEmployee)
+{
+    int retorno = -1;
+    Employee* pEmpleado;
+    int indexRemove;
+    if( pArrayListEmployee != NULL &&
+        !employee_getById(pArrayListEmployee,&indexRemove))
+    {
+        pEmpleado = ll_get(pArrayListEmployee, indexRemove);
+        if( !employee_confirmEditOrRemove(pEmpleado))
+        {
+            free(ll_pop(pArrayListEmployee, indexRemove));
+            retorno = 0;
+        }
+    }
+    return retorno;
+}
+int employee_confirmEditOrRemove(Employee* this)
+{
+    int retorno = -1;
+    char confirmar[10];
+    system("clear");
+    printf("\nHa seleccionado el siguiente empleado");
+    employee_showInfo(this);
+    if( !utn_getTexto(confirmar, 10, "\nPulse 1 para confirmar: ", "\nError", 0) &&
+        strcmp(confirmar, "1") == 0)
+    {
+        retorno = 0;
+    }
+    return retorno;
+}
 
 int employee_list(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
     Employee* pEmpleado;
-    int bufferId;
-    char bufferNombre[128];
-    int bufferHorasTrabajadas;
-    int bufferSueldo;
     int i;
     int numeroEmpleados = 0;
     if(pArrayListEmployee != NULL)
@@ -243,12 +354,7 @@ int employee_list(LinkedList* pArrayListEmployee)
         for(i=0;i < ll_len(pArrayListEmployee);i++)
         {
             pEmpleado = ll_get(pArrayListEmployee,i);
-            employee_getId(pEmpleado,&bufferId);
-            employee_getNombre(pEmpleado,bufferNombre);
-            employee_getHorasTrabajadas(pEmpleado,&bufferHorasTrabajadas);
-            employee_getSueldo(pEmpleado,&bufferSueldo);
-            printf( "\nId: %d - Nombre: %s - Horas: %d - Sueldo: %d",
-                    bufferId,bufferNombre,bufferHorasTrabajadas,bufferSueldo);
+            employee_showInfo(pEmpleado);
             numeroEmpleados++;
         }
         printf("\nHay %d empleados\n",numeroEmpleados);
@@ -259,31 +365,79 @@ int employee_list(LinkedList* pArrayListEmployee)
 int employee_sort(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
-    /*Employee* pEmpleadoA;
-    Employee* pEmpleadoB;
+    int option = 0;
     if(pArrayListEmployee != NULL)
     {
-        if(ll_sort(pArrayListEmployee,employee_criterioSortSueldo(pEmpleadoA,pEmpleadoB),0))
+        printf( "\n1. Id(Menor a Mayor)"
+                "\n2. Id(Mayor a Menor)"
+                "\n3. Nombre(A-Z)"
+                "\n4. Nombre(Z-A)"
+                "\n5. Horas(Menor a Mayor)"
+                "\n6. Horas(Mayor a Menor)"
+                "\n7. Sueldo(Menor a Mayor)"
+                "\n8. Sueldo(Mayor a Menor)"
+                "\n9. Cancelar");
+        utn_getEntero(&option, 5, "Seleccione...\n", "", 0);
+        if(option > 0 && option < 9)
         {
-            retorno = 0;
+            printf("Esto puede llevar unos minutos...\n");
         }
-    }*/
+        switch(option)
+        {
+            case 1:
+                if(!ll_sort(pArrayListEmployee,employee_criterioSortId,1))
+                {
+                    retorno = 0;
+                }
+                break;
+            case 2:
+                if(!ll_sort(pArrayListEmployee,employee_criterioSortId,0))
+                {
+                    retorno = 0;
+                }
+                break;
+            case 3:
+                if(!ll_sort(pArrayListEmployee,employee_criterioSortNombre,1))
+                {
+                    retorno = 0;
+                }
+                break;
+            case 4:
+                if(!ll_sort(pArrayListEmployee,employee_criterioSortNombre,0))
+                {
+                    retorno = 0;
+                }
+                break;
+            case 5:
+                if(!ll_sort(pArrayListEmployee,employee_criterioSortHorasTrabajadas,1))
+                {
+                    retorno = 0;
+                }
+                break;
+            case 6:
+                if(!ll_sort(pArrayListEmployee,employee_criterioSortHorasTrabajadas,0))
+                {
+                    retorno = 0;
+                }
+                break;
+            case 7:
+                if(!ll_sort(pArrayListEmployee,employee_criterioSortSueldo,1))
+                {
+                    retorno = 0;
+                }
+                break;
+            case 8:
+                if(!ll_sort(pArrayListEmployee,employee_criterioSortSueldo,0))
+                {
+                    retorno = 0;
+                }
+                break;
+            default:
+                break;
+        }
+    }
     return retorno;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 int employee_criterioSortId(void* thisA, void* thisB)
 {
@@ -314,7 +468,7 @@ int employee_criterioSortNombre(void* thisA, void* thisB)
     {
         retorno = 1;
     }
-    else if(strcmp(nombreA,nombreB) > 0)
+    else if(strcmp(nombreA,nombreB) < 0)
     {
         retorno = -1;
     }
