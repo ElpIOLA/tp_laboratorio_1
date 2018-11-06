@@ -4,12 +4,13 @@
 #include <string.h>
 #include "utn.h"
 /**
-* \brief Evalua si se trata de un id valido
-* \param pBuffer Es la cadena que evaluamos
-* \param limite Es el numero maximo de cifras
-* \return En caso de exito retorna 1, si no 0
-*
-*/
+ * \brief Evalua si se trata de un id valido
+ *
+ * \param pBuffer Es la cadena que evaluamos
+ * \param limite Es el numero maximo de cifras
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 static int isValidId(char *pBuffer, int limite)
 {
     int retorno;
@@ -17,12 +18,13 @@ static int isValidId(char *pBuffer, int limite)
     return retorno;
 }
 /**
-* \brief    Evalua si es un nombre valido
-* \param pBuffer Es la cadena que evaluamos
-* \param limite Es el tamano maximo del string
-* \return En caso de exito retorna 1, si no 0
-*
-*/
+ * \brief    Evalua si es un nombre valido
+ *
+ * \param pBuffer Es la cadena que evaluamos
+ * \param limite Es el tamano maximo del string
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 static int isValidNombre(char *pBuffer, int limite)
 {
     int retorno = -1;
@@ -30,12 +32,13 @@ static int isValidNombre(char *pBuffer, int limite)
     return retorno;
 }
 /**
-* \brief Evalua si se trata de una cantidad de horas trabajada valida
-* \param pBuffer Es la cadena que evaluamos
-* \param limite Es el numero maximo de cifras
-* \return En caso de exito retorna 1, si no 0
-*
-*/
+ * \brief Evalua si se trata de una cantidad de horas trabajada valida
+ *
+ * \param pBuffer Es la cadena que evaluamos
+ * \param limite Es el numero maximo de cifras
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 static int isValidHorasTrabajadas(char *pBuffer, int limite)
 {
     int retorno;
@@ -43,25 +46,38 @@ static int isValidHorasTrabajadas(char *pBuffer, int limite)
     return retorno;
 }
 /**
-* \brief Evalua si se trata de un sueldo valido
-* \param pBuffer Es la cadena que evaluamos
-* \param limite Es el numero maximo de cifras
-* \return En caso de exito retorna 1, si no 0
-*
-*/
+ * \brief Evalua si se trata de un sueldo valido
+ *
+ * \param pBuffer Es la cadena que evaluamos
+ * \param limite Es el numero maximo de cifras
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 static int isValidSueldo(char *pBuffer, int limite)
 {
     int retorno;
     retorno = utn_isValidEnteroSoloNumeros(pBuffer,limite);
     return retorno;
 }
-
+/**
+ * \brief Incrementa el nuevo Id del empleado en 1, empezando desde 0 con el metodo static.
+ *
+ * \return Int Devuelve el nuevo Id.
+ */
 int employee_getNextId()
 {
     static int ultimoId = -1;
     ultimoId++;
     return ultimoId;
 }
+/**
+ * \brief Toma el indice de un empleado por el Id.
+ *
+ * \param pArrayListEmployee LinkedList*
+ * \param index int*
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_getById(LinkedList* pArrayListEmployee, int* index)
 {
     int retorno = -1;
@@ -76,7 +92,6 @@ int employee_getById(LinkedList* pArrayListEmployee, int* index)
         }
     }
     return retorno;
-
 }
 int employee_getIndexById(LinkedList* pArrayListEmployee,int id, int* index)
 {
@@ -189,6 +204,23 @@ int employee_getSueldo(Employee* this,int* sueldo)
     }
     return retorno;
 }
+
+int employee_setAll(Employee* this, int id,char* nombre, int horasTrabajadas, int sueldo)
+{
+    int retorno = -1;
+    if( !employee_setNombre(this, nombre) &&
+        !employee_setHorasTrabajadas(this, horasTrabajadas)&&
+        !employee_setSueldo(this, sueldo))
+    {
+        retorno = 0;
+    }
+    return retorno;
+
+}
+
+
+
+
 int employee_showInfo(Employee* this)
 {
     int retorno = -1;
@@ -288,28 +320,83 @@ int employee_edit(LinkedList* pArrayListEmployee)
         pEmpleado = ll_get(pArrayListEmployee, indexEmpleado);
         if( !employee_confirmEditOrRemove(pEmpleado))
         {
-            //employee_menuEdicion
-
-
-
-
-/*if( !utn_getTexto(  bufferNombre,128,"\nIntroduzca nombre del empleado: ","",0) &&
-    !utn_getTexto(  bufferHorasTrabajadas,20,"\nIntroduzca horas trabajadas del empleado: ", "",0) &&
-    !utn_getTexto(  bufferSueldo,20,"\nIntroduzca sueldo del empleado: ","",0))
-{
-    employee_setNombre(pEmpleado, buffer)
-    if(pEmpleado != NULL)
-    {
-        ll_add(pArrayListEmployee, pEmpleado);
-        retorno = 0;
-    }
-}*/
-
-         //
+            retorno = employee_menuEdicion(pEmpleado);
         }
     }
     return retorno;
 }
+int employee_menuEdicion(Employee* this)
+{
+    int retorno = -1;
+    Employee* pEmpleadoAux;
+    char previousNombre[128];
+    int previousHorasTrabajadas;
+    int previousSueldo;
+    char bufferNombre[128];
+    char bufferId[20];
+    char bufferHorasTrabajadas[20];
+    char bufferSueldo[20];
+    int bufferIdInt;
+    int bufferHorasTrabajadasInt;
+    int bufferSueldoInt;
+    if(this != NULL)
+    {
+        employee_getNombre(this, previousNombre);
+        printf("\nEditar Nombre: %s", previousNombre);
+        if(!utn_confirm())
+        {
+            utn_getTexto(bufferNombre,128,"\nIntroduzca nombre del empleado: ","",0);
+        }
+        else
+        {
+            employee_getNombre(this, bufferNombre);
+        }
+
+        employee_getHorasTrabajadas(this, &previousHorasTrabajadas);
+        printf("\nEditar Horas: %d", previousHorasTrabajadas);
+        if(!utn_confirm())
+        {
+            utn_getTexto(bufferHorasTrabajadas,128,"\nIntroduzca horas del empleado: ","",0);
+        }
+        else
+        {
+            employee_getHorasTrabajadas(this, &bufferHorasTrabajadasInt);
+            snprintf(bufferHorasTrabajadas, 20*sizeof(char), "%d", bufferHorasTrabajadasInt);
+        }
+
+        employee_getSueldo(this, &previousSueldo);
+        printf("\nEditar Sueldo: %d",previousSueldo);
+        if(!utn_confirm())
+        {
+            utn_getTexto(bufferSueldo,128,"\nIntroduzca sueldo del empleado: ","",0);
+        }
+        else
+        {
+            employee_getSueldo(this, &bufferSueldoInt);
+            snprintf(bufferSueldo, 20*sizeof(char), "%d", bufferSueldoInt);
+        }
+        employee_getId(this, &bufferIdInt);
+        snprintf(bufferId, 20*sizeof(char), "%d", bufferIdInt);
+        pEmpleadoAux = employee_newConParametros(   bufferId, bufferNombre, 128,
+                                                    bufferHorasTrabajadas,bufferSueldo);
+        if(pEmpleadoAux != NULL)
+        {
+            printf("\nEmpleado sin editar");
+            employee_showInfo(this);
+            printf("\nEmpleado editado");
+            employee_showInfo(pEmpleadoAux);
+            if(!utn_confirm())
+            {
+                employee_setAll(this, bufferIdInt, bufferNombre,
+                                atoi(bufferHorasTrabajadas), atoi(bufferSueldo));
+                retorno = 0;
+            }
+        }
+    }
+    return retorno;
+}
+
+
 int employee_remove(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
@@ -330,17 +417,16 @@ int employee_remove(LinkedList* pArrayListEmployee)
 int employee_confirmEditOrRemove(Employee* this)
 {
     int retorno = -1;
-    char confirmar[10];
     system("clear");
     printf("\nHa seleccionado el siguiente empleado");
     employee_showInfo(this);
-    if( !utn_getTexto(confirmar, 10, "\nPulse 1 para confirmar: ", "\nError", 0) &&
-        strcmp(confirmar, "1") == 0)
+    if( !utn_confirm())
     {
         retorno = 0;
     }
     return retorno;
 }
+
 
 int employee_list(LinkedList* pArrayListEmployee)
 {

@@ -8,7 +8,21 @@ static void myFpurge()
     __fpurge(stdin);
     //fflush(stdin);
 }
-
+/**
+* \brief El usuario confirma con un 1
+*
+*/
+int utn_confirm()
+{
+    int retorno = -1;
+    char confirmar[10];
+    if( !utn_getTexto(confirmar, 10, "\nPulse 1 para confirmar: ", "\nError", 0) &&
+        strcmp(confirmar, "1") == 0)
+    {
+        retorno = 0;
+    }
+    return retorno;
+}
 //FUNCIONES STATIC
 /**
 * \brief El usuario ingresa una cadena con fgets

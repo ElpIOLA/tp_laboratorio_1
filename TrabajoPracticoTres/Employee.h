@@ -19,6 +19,7 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas);
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas);
 int employee_setSueldo(Employee* this,int sueldo);
 int employee_getSueldo(Employee* this,int* sueldo);
+int employee_setAll(Employee* this, int id,char* nombre, int horasTrabajadas, int sueldo);
 int employee_showInfo(Employee* this);
 Employee* employee_new();
 int employee_delete(Employee* this);
@@ -26,6 +27,7 @@ Employee* employee_newConParametros(char* idString,char* nombre,int lenNombre,
                                     char* horasTrabajadasString,char* sueldoString);
 int employee_add(LinkedList* pArrayListEmployee);
 int employee_edit(LinkedList* pArrayListEmployee);
+int employee_menuEdicion(Employee* this);
 int employee_remove(LinkedList* pArrayListEmployee);
 int employee_confirmEditOrRemove(Employee* this);
 int employee_list(LinkedList* pArrayListEmployee);

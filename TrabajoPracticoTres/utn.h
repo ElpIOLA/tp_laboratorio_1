@@ -6,7 +6,7 @@ typedef struct Empleado
     char apellido[50];
     char DNI[20];
 }utnEmpleado;
-//
+int utn_confirm();
 int utn_isValidNombre(char *pBuffer, int limite);
 int utn_isValidEnteroSoloNumeros(char *pBuffer, int limite);
 //TOMA DE DATOS PARA EL MAIN

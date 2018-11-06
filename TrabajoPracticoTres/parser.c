@@ -4,11 +4,11 @@
 #include "string.h"
 #include "LinkedList.h"
 #include "Employee.h"
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
+/** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto)
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pFile FILE* Es el archivo donde se encuentran los empleados(abierto en modo lectura(r))
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se guardan los empleados cargados
+ * \return int retorna 0 si el archivo se cargo correctamente, y 1 si no se pudo cargar.
  *
  */
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
@@ -60,12 +60,11 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
-
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
+/** \brief Carga los datos de los empleados desde el archivo data.bin (modo binario)
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pFile FILE* Es el archivo donde se encuentran los empleados(abierto en modo lectura binaria(rb))
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se guardan los empleados cargados
+ * \return int retorna 0 si el archivo se cargo correctamente, y 1 si no se pudo cargar.
  *
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
@@ -103,6 +102,13 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
+/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto)
+ *
+ * \param pFile FILE* Es el archivo donde se guardan los empleados(abierto en modo escritura(w))
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si el archivo se guardo correctamente, y 1 si no se pudo guardar.
+ *
+ */
 int parser_saveAsText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
@@ -134,8 +140,13 @@ int parser_saveAsText(FILE* pFile , LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
-
-
+/** \brief Guarda los datos de los empleados en el archivo data.bin (modo binario)
+ *
+ * \param pFile FILE* Es el archivo donde se guardan los empleados(abierto en modo escritura binaria(wb))
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si el archivo se guardo correctamente, y 1 si no se pudo guardar.
+ *
+ */
 int parser_saveAsBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
     int retorno = -1;

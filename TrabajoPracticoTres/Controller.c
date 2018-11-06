@@ -6,6 +6,10 @@
 #include "Controller.h"
 #include "utn.h"
 #include "Employee.h"
+/**
+* \brief Inicializa el programa y muestra el menu principal
+*
+*/
 int controller_init()
 {
     int option;
@@ -65,14 +69,11 @@ int controller_init()
     }while(option != 10);
     return 0;
 }
-
-
-
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
+/** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto)
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path char* Es el path donde se encuentra el archivo
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se guardan los empleados cargados
+ * \return int retorna 0 si el archivo se cargo correctamente, y 1 si no se pudo cargar.
  *
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
@@ -88,12 +89,11 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
     fclose(pFile);
     return retorno;
 }
-
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
+/** \brief Carga los datos de los empleados desde el archivo data.bin (modo binario)
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path char* Es el path donde se encuentra el archivo
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se guardan los empleados cargados
+ * \return int retorna 0 si el archivo se cargo correctamente, y 1 si no se pudo cargar.
  *
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
@@ -109,12 +109,10 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
     fclose(pFile);
     return retorno;
 }
-
-/** \brief Alta de empleados
+/** \brief Realiza el alta de un nuevo empleado, agregandolo al final de la LinkedList.
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se guarda el nuevo empleado.
+ * \return retorna 0 si el empleado se cargo correctamente, y 1 si no se pudo cargar.
  *
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
@@ -132,11 +130,10 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Modificar datos de empleado
+/** \brief Edita un empleado seleccionado a traves de un Id.
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return retorna 0 si el empleado se edito correctamente, y 1 si no se pudo editar.
  *
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
@@ -153,12 +150,10 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
-
-/** \brief Baja de empleado
+/** \brief Realiza la baja de un nuevo empleado, seleccionado a traves de un Id.
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return retorna 0 si el empleado se borro correctamente, y 1 si no se pudo borrar.
  *
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
@@ -175,12 +170,10 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
-
-/** \brief Listar empleados
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+/** \brief  Lista todos los empleados de un LinkedList con toda su info
+ *          (Id, Nombre, Horas Trabajadas, Sueldo)
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return retorna 0 si el empleado se mostro correctamente, y 1 si no se pudo mostrar.
  *
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
@@ -194,12 +187,10 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
     return retorno;
 
 }
-
-/** \brief Ordenar empleados
+/** \brief  Ordena todos los empleados de un LinkedList seleccionando el criterio de orden.
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return retorna 0 si se realizo el ordenamiento correctamente, y 1 si no se pudo ordenar.
  *
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
@@ -216,12 +207,11 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
-
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
+/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto)
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path char* Es el path donde se guarda el archivo.
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si el archivo se guardo correctamente, y 1 si no se pudo guardar.
  *
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
@@ -237,12 +227,11 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
     fclose(pFile);
     return retorno;
 }
-
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
+/** \brief Guarda los datos de los empleados en el archivo data.bin (modo binario)
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path char* Es el path donde se guarda el archivo.
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si el archivo se guardo correctamente, y 1 si no se pudo guardar.
  *
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
