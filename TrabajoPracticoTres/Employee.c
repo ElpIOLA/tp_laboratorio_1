@@ -27,8 +27,12 @@ static int isValidId(char *pBuffer, int limite)
  */
 static int isValidNombre(char *pBuffer, int limite)
 {
-    int retorno = -1;
+    int retorno;
     retorno = utn_isValidNombre(pBuffer,limite);
+    if(retorno != 1)
+    {
+        printf("\nEl nombre debe comenzar por mayuscula y el resto minusculas");
+    }
     return retorno;
 }
 /**
@@ -73,8 +77,8 @@ int employee_getNextId()
 /**
  * \brief Toma el indice de un empleado por el Id.
  *
- * \param pArrayListEmployee LinkedList*
- * \param index int*
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se buscan los empleados.
+ * \param index int* Se retorna por parametros el index donde se encuentra el empleado.
  * \return En caso de exito retorna 1, si no 0
  *
  */
@@ -93,6 +97,14 @@ int employee_getById(LinkedList* pArrayListEmployee, int* index)
     }
     return retorno;
 }
+/**
+ * \brief Toma el indice de un empleado por el Id recorriendo todo el LinkedList
+ *
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se buscan los empleados.
+ * \param index int* Se retorna por parametros el index donde se encuentra el empleado.
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_getIndexById(LinkedList* pArrayListEmployee,int id, int* index)
 {
     int retorno = -1;
@@ -115,8 +127,14 @@ int employee_getIndexById(LinkedList* pArrayListEmployee,int id, int* index)
     }
     return retorno;
 }
-
-
+/**
+ * \brief Setter del Id
+ *
+ * \param this Employee* Es el empleado donde se guarda el id
+ * \param id int Es el id que se guarda en el empleado
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_setId(Employee* this,int id)
 {
     int retorno=-1;
@@ -127,7 +145,14 @@ int employee_setId(Employee* this,int id)
     }
     return retorno;
 }
-
+/**
+ * \brief Getter del Id
+ *
+ * \param this Employee* Es el empleado que contiene el id
+ * \param id int* Se retorna por parametros el dato del id
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_getId(Employee* this,int* id)
 {
     int retorno=-1;
@@ -138,7 +163,14 @@ int employee_getId(Employee* this,int* id)
     }
     return retorno;
 }
-
+/**
+ * \brief Setter del Nombre
+ *
+ * \param this Employee* Es el empleado donde se guarda el nombre
+ * \param nombre char* Es el nombre que se guarda en el empleado
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_setNombre(Employee* this,char* nombre)
 {
     int retorno=-1;
@@ -149,7 +181,14 @@ int employee_setNombre(Employee* this,char* nombre)
     }
     return retorno;
 }
-
+/**
+ * \brief Getter del Nombre
+ *
+ * \param this Employee* Es el empleado que contiene el nombre
+ * \param nombre char* Se retorna por parametros el dato del nombre
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_getNombre(Employee* this,char* nombre)
 {
     int retorno=-1;
@@ -160,7 +199,14 @@ int employee_getNombre(Employee* this,char* nombre)
     }
     return retorno;
 }
-
+/**
+ * \brief Setter de las horas
+ *
+ * \param this Employee* Es el empleado donde se guardan las horas trabajadas
+ * \param horasTrabajadas int Es la cantidad de horas que se guarda en el empleado
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
     int retorno=-1;
@@ -171,7 +217,14 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
     }
     return retorno;
 }
-
+/**
+ * \brief Getter de las horasTrabajadas
+ *
+ * \param this Employee* Es el empleado que contiene las horasTrabajadas
+ * \param id int* Se retorna por parametros el dato de las horasTrabajadas
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 {
     int retorno=-1;
@@ -182,7 +235,14 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
     }
     return retorno;
 }
-
+/**
+ * \brief Setter del Sueldo
+ *
+ * \param this Employee* Es el empleado donde se guarda el sueldo
+ * \param sueldo int Es el sueldo que se guarda en el empleado
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_setSueldo(Employee* this,int sueldo)
 {
     int retorno = -1;
@@ -193,7 +253,14 @@ int employee_setSueldo(Employee* this,int sueldo)
     }
     return retorno;
 }
-
+/**
+ * \brief Getter del Sueldo
+ *
+ * \param this Employee* Es el empleado que contiene el sueldo
+ * \param sueldo int* Se retorna por parametros el dato del sueldo
+ * \return En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_getSueldo(Employee* this,int* sueldo)
 {
     int retorno = -1;
@@ -204,7 +271,17 @@ int employee_getSueldo(Employee* this,int* sueldo)
     }
     return retorno;
 }
-
+/**
+ * \brief Setter de todos las propiedades del empleado
+ *
+ * \param this Employee* Es el empleado donde se guardan estos datos
+ * \param id int Es el id que se guarda en el empleado
+ * \param nombre char* Es el nombre que se guarda en el empleado
+ * \param horasTrabajadas int Son las horas trabajadas a guardar en el empleado
+ * \param sueldo int Es el sueldo que se guarda en el empleado
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_setAll(Employee* this, int id,char* nombre, int horasTrabajadas, int sueldo)
 {
     int retorno = -1;
@@ -217,10 +294,13 @@ int employee_setAll(Employee* this, int id,char* nombre, int horasTrabajadas, in
     return retorno;
 
 }
-
-
-
-
+/**
+ * \brief Muestra toda la informacion de un solo empleado
+ *
+ * \param this Employee* Es el empleado que contiene la informacion
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_showInfo(Employee* this)
 {
     int retorno = -1;
@@ -240,12 +320,24 @@ int employee_showInfo(Employee* this)
     }
     return retorno;
 }
+/**
+ * \brief Asigna el espacio de memoria para la creacion de un empleado
+ * \return Employee* En caso de exito retorna el puntero al empleado, si no NULL
+ *
+ */
 Employee* employee_new()
 {
     Employee* this;
     this = malloc(sizeof(Employee));
     return this;
 }
+/**
+ * \brief Libera el espacio de memoria donde se encontraba el empleado utilizando free()
+ *
+ * \param this Employee* Es el empleado que se desea eliminar
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_delete(Employee* this)
 {
     int retorno = -1;
@@ -256,7 +348,11 @@ int employee_delete(Employee* this)
     }
     return retorno;
 }
-
+/**
+ * \brief Asigna el espacio de memoria para la creacion de un empleado con todos sus atributos cargados
+ * \return Employee* En caso de exito retorna el puntero al empleado, si no NULL
+ *
+ */
 Employee* employee_newConParametros(char* idString,char* nombre,int lenNombre,
                                     char* horasTrabajadasString,char* sueldoString)
 {
@@ -270,10 +366,7 @@ Employee* employee_newConParametros(char* idString,char* nombre,int lenNombre,
         isValidNombre(nombre,lenNombre) &&
         isValidHorasTrabajadas(horasTrabajadasString,20) &&
         isValidSueldo(sueldoString,20) &&
-        !employee_setId(this,idInt)&&
-        !employee_setNombre(this,nombre)&&
-        !employee_setHorasTrabajadas(this,horasTrabajadasInt)&&
-        !employee_setSueldo(this,sueldoInt))
+        !employee_setAll(this, idInt, nombre, horasTrabajadasInt, sueldoInt))
     {
         retorno = this;
     }
@@ -283,6 +376,13 @@ Employee* employee_newConParametros(char* idString,char* nombre,int lenNombre,
     }
     return retorno;
 }
+/**
+ * \brief Aniade un empleado al final de la LinkedList
+ *
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde estan los empleados.
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_add(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
@@ -309,6 +409,13 @@ int employee_add(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
+/**
+ * \brief Edita un empleado seleccionado de la LinkedList a traves de un id
+ *
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde estan los empleados.
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_edit(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
@@ -325,6 +432,13 @@ int employee_edit(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
+/**
+ * \brief Se selecciona que atributos se desean editar del empleado
+ *
+ * \param this Employee* Es el empleado que se desea editar
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_menuEdicion(Employee* this)
 {
     int retorno = -1;
@@ -395,8 +509,13 @@ int employee_menuEdicion(Employee* this)
     }
     return retorno;
 }
-
-
+/**
+ * \brief Elimina un empleado seleccionado de la LinkedList a traves de un id
+ *
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde estan los empleados.
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_remove(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
@@ -414,6 +533,13 @@ int employee_remove(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
+/**
+ * \brief Muestra el empleado seleccionado y confirma si se desea editar o eliminar
+ *
+ * \param this Employee* Es el empleado que se desea editar o eliminar
+* \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_confirmEditOrRemove(Employee* this)
 {
     int retorno = -1;
@@ -426,8 +552,13 @@ int employee_confirmEditOrRemove(Employee* this)
     }
     return retorno;
 }
-
-
+/**
+ * \brief Muestra toda la informacion de los empleados
+ *
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_list(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
@@ -447,7 +578,13 @@ int employee_list(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
-
+/**
+ * \brief Ordena todos los empleados por el criterio seleccionado a traves de un menu
+ *
+ * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return Int En caso de exito retorna 1, si no 0
+ *
+ */
 int employee_sort(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
@@ -524,7 +661,12 @@ int employee_sort(LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
-
+/**
+ * \brief Toma dos empleados y compara sus id
+ *
+ * \return Int En caso de que thisA sea mayor retorna 1, si thisB es mayor -1 y si son iguales 0
+ *
+ */
 int employee_criterioSortId(void* thisA, void* thisB)
 {
     int idA;
@@ -542,7 +684,12 @@ int employee_criterioSortId(void* thisA, void* thisB)
     }
     return retorno;
 }
-
+/**
+ * \brief Toma dos empleados y compara sus nombres
+ *
+ * \return Int En caso de que thisA sea mayor retorna 1, si thisB es mayor -1 y si son iguales 0
+ *
+ */
 int employee_criterioSortNombre(void* thisA, void* thisB)
 {
     char nombreA[128];
@@ -560,7 +707,12 @@ int employee_criterioSortNombre(void* thisA, void* thisB)
     }
     return retorno;
 }
-
+/**
+ * \brief Toma dos empleados y compara sus horas
+ *
+ * \return Int En caso de que thisA sea mayor retorna 1, si thisB es mayor -1 y si son iguales 0
+ *
+ */
 int employee_criterioSortHorasTrabajadas(void* thisA, void* thisB)
 {
     int horasTrabajadasA;
@@ -578,7 +730,12 @@ int employee_criterioSortHorasTrabajadas(void* thisA, void* thisB)
     }
     return retorno;
 }
-
+/**
+ * \brief Toma dos empleados y compara sus sueldos
+ *
+ * \return Int En caso de que thisA sea mayor retorna 1, si thisB es mayor -1 y si son iguales 0
+ *
+ */
 int employee_criterioSortSueldo(void* thisA, void* thisB)
 {
     int sueldoA;
