@@ -21,7 +21,10 @@
 #include "../testing/inc/main_test.h"
 #include "../inc/LinkedList.h"
 #include "../testing/inc/Employee.h"
-//preguntar donde las pongo
+//hacer un test copado
+//documentar map
+//strtok en el otro
+//strstr
 int salaryFilter (void* pElement)
 {
     int returnAux = 0;
@@ -77,7 +80,7 @@ int main(void)
     startTesting(7);  // ll_set
     startTesting(8);  // ll_remove
     startTesting(9);  // ll_clear
-    startTesting(10); // ll_deleteLinkedList
+    /*startTesting(10); // ll_deleteLinkedList
     startTesting(11); // ll_indexOf
     startTesting(12); // ll_isEmpty
     startTesting(13); // ll_push
@@ -86,7 +89,7 @@ int main(void)
     startTesting(16); // ll_containsAll
     startTesting(17); // ll_subList
     startTesting(18); // ll_clone
-    startTesting(19); // ll_sort
+    startTesting(19);*/ // ll_sort
     testFilter();
 
     return 0;

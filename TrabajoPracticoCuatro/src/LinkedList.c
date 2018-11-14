@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../inc/LinkedList.h"
-
-static Node* actualNode = NULL;
 /** \brief Coloca el iterador en el primer nodo
  *
  *  \param this LinkedList* Puntero a la lista
@@ -12,22 +10,22 @@ void ll_startIterator(LinkedList* this)
 {
     if(this != NULL)
     {
-        actualNode = this->pFirstNode;
+        this->pIteratorNode = this->pFirstNode;
     }
 }
 /** \brief  Toma el siguiente elemento de la lista utilizando el nodo declarado estaticamente
  *          Y coloca el nodo en el siguiente indice de la lista
- *  \param void
+ *  \param this LinkedList* Puntero a la lista
  *  \return void*   Retorna (NULL) en el caso de no conseguir un nuevo elemento o si el siguiente elemento es NULL
  *                  Y retorna el puntero al elemento si existe.
  */
-void* ll_getNext()
+void* ll_getNext(LinkedList* this)
 {
     void* returnAux = NULL;
-    if(actualNode != NULL)
+    if(this->pIteratorNode != NULL)
     {
-        returnAux = actualNode->pElement;
-        actualNode = actualNode->pNextNode;
+        returnAux = this->pIteratorNode->pElement;
+        this->pIteratorNode = this->pIteratorNode->pNextNode;
     }
     return returnAux;
 }
@@ -303,7 +301,7 @@ int ll_indexOf(LinkedList* this, void* pElement)
         ll_startIterator(this);
         for(i = 0; i < ll_len(this); i++)
         {
-            auxElement = ll_getNext();
+            auxElement = ll_getNext(this);
             if(auxElement == pElement)
             {
                 returnAux = i;
@@ -474,10 +472,6 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
             flagSwap = 0;
             for(i=0; i<ll_len(this)-1; i++)
             {
-                if(i!=0)
-                {
-                    auxNode = auxNode->pNextNode;
-                }
                 if( (order == 0 && auxNode->pElement != NULL && auxNode->pNextNode->pElement != NULL &&
                     (*pFunc)(auxNode->pElement, auxNode->pNextNode->pElement) == -1) ||
 
@@ -486,8 +480,8 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
                 {
                     flagSwap = 1;
                     ll_swapElement(this, auxNode);
-
                 }
+                auxNode = auxNode->pNextNode;
             }
         }
         while(flagSwap==1);
@@ -533,7 +527,7 @@ LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void* pElement))
         ll_startIterator(this);
         for(i=0; i<ll_len(this); i++)
         {
-            auxElement = ll_getNext();
+            auxElement = ll_getNext(this);
             if((*pFunc)(auxElement) == 1)
             {
                 ll_add(returnAux, auxElement);
@@ -542,4 +536,26 @@ LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void* pElement))
     }
     return returnAux;
 }
-
+int ll_map(LinkedList* this, int (*pFunc)(void* pElement),int from, int to)
+{
+    int returnAux = -1;
+    void* auxElement = NULL;
+    Node* auxNode = NULL;
+    int i;
+    if(this != NULL && ll_len(this) > 0 && pFunc != NULL && from >= 0 && to > from && to <= ll_len(this))
+    {
+        returnAux = 0;
+        auxNode = getNode(this, from);
+        this->pIteratorNode = auxNode;
+        for(i=from; i<to; i++)
+        {
+            auxElement = ll_getNext(this);
+            if((*pFunc)(auxElement) != 0)
+            {
+                returnAux = 1;
+                break;
+            }
+        }
+    }
+    return returnAux;
+}
