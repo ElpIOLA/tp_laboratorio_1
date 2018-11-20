@@ -14,4 +14,5 @@ int controller_deleteAllEmployees(LinkedList* this);
 int controller_deleteList(LinkedList* this);
 int controller_filterBySalaryMax(LinkedList* this);
 int controller_filterBySalaryMin(LinkedList* this);
+LinkedList* controller_backUpList(LinkedList* this);
 #endif

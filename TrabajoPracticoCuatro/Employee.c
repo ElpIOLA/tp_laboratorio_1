@@ -858,3 +858,19 @@ int employee_salaryMin(void* pEmployeeVoid)
     }
     return retorno;
 }
+/** \brief Realiza un backup de la lista original
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return LinkedList*  retorna el puntero a la lista clonada si se realizo correctamente,
+ *                      NULL si no.
+ *
+ */
+LinkedList* employee_backUpList(LinkedList* this)
+{
+    LinkedList* retorno = NULL;
+    if(this != NULL)
+    {
+        retorno = ll_clone(this);
+    }
+    return retorno;
+}

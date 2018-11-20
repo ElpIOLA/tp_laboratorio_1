@@ -14,6 +14,7 @@ int controller_init()
 {
     int option;
     LinkedList* listaEmpleados = ll_newLinkedList();
+    LinkedList* listaEmpleadosBackUp = NULL;
     do{
         system("clear");
         printf( "1. Carga de empleados (modo texto)\n"
@@ -29,7 +30,9 @@ int controller_init()
                 "11. Borrar lista y salir\n"
                 "12. Filtrar Por Sueldo Maximo\n"
                 "13. Filtrar Por Sueldo Minimo\n"
-                "14. Salir\n");
+                "14. Hacer Backup de la lista\n"
+                "15. Volver al ultimo Backup de la lista\n"
+                "20. Salir\n");
         option = 0;
         utn_getEntero(&option, 5, "Seleccione...\n", "", 0);
         switch(option)
@@ -67,7 +70,7 @@ int controller_init()
             case 11:
                 if(!controller_deleteList(listaEmpleados))
                 {
-                    option = 14;
+                    option = 20;
                 }
                 break;
             case 12:
@@ -77,6 +80,12 @@ int controller_init()
                 controller_filterBySalaryMin(listaEmpleados);
                 break;
             case 14:
+                listaEmpleadosBackUp = controller_backUpList(listaEmpleados);
+                break;
+            case 15:
+                listaEmpleados = controller_backUpList(listaEmpleadosBackUp);
+                break;
+            case 20:
                 break;
             default:
                 printf("Opcion Incorrecta\n");
@@ -85,7 +94,7 @@ int controller_init()
         printf("\nPulse Enter para continuar");
         __fpurge(stdin);
         getchar();
-    }while(option != 14);
+    }while(option != 20);
     return 0;
 }
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto)
@@ -325,6 +334,26 @@ int controller_filterBySalaryMin(LinkedList* this)
     if(!employee_filterBySalaryMin(this))
     {
         retorno = 0;
+    }
+    return retorno;
+}
+/** \brief Realiza un backup de la lista original
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return LinkedList*  retorna el puntero a la lista clonada si se realizo correctamente,
+ *                      NULL si no.
+ *
+ */
+LinkedList* controller_backUpList(LinkedList* this)
+{
+    LinkedList* retorno = employee_backUpList(this);
+    if(retorno != NULL)
+    {
+        printf("Se realizo la copia correctamente\n");
+    }
+    else
+    {
+        printf("No se pudo realizar la copia\n");
     }
     return retorno;
 }
