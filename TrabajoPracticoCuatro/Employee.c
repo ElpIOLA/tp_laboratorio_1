@@ -753,3 +753,50 @@ int employee_criterioSortSueldo(void* thisA, void* thisB)
     }
     return retorno;
 }
+/** \brief Borra todos los empleados de la lista pero no elimina la lista
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si se borraron todos los empleados, 1 si no
+ *
+ */
+int employee_deleteAll(LinkedList* this)
+{
+    int retorno = -1;
+    if(this != NULL && !utn_confirm())
+    {
+        ll_clear(this);
+        retorno = 0;
+    }
+    return retorno;
+}
+/** \brief Borra todos los empleados de la lista y la lista donde se encuentran
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si se borraron todos los empleados y la lista, 1 si no
+ *
+ */
+int employee_deleteList(LinkedList* this)
+{
+    int retorno = -1;
+    if(this != NULL && !utn_confirm())
+    {
+        ll_deleteLinkedList(this);
+        retorno = 0;
+    }
+    return retorno;
+}
+/** \brief Filtra los empleados por un salario
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si se realizo el filtrado correctamente, 1 si no.
+ *
+ */
+int employee_filterBySalary(LinkedList* this)
+{
+    int retorno = -1;
+    if(!employee_filterBySalary(this))
+    {
+        retorno = 0;
+    }
+    return retorno;
+}

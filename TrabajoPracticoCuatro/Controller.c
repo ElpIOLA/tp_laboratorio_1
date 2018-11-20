@@ -25,7 +25,10 @@ int controller_init()
                 "7. Ordenar empleados\n"
                 "8. Guardar empleados (modo texto)\n"
                 "9. Guardar empleados (modo binario)\n"
-                "10. Salir\n");
+                "10. Borrar todos los empleado\n"
+                "11. Borrar lista y salir\n"
+                "12. Filtrar Por Sueldo\n"
+                "13. Salir\n");
         option = 0;
         utn_getEntero(&option, 5, "Seleccione...\n", "", 0);
         switch(option)
@@ -58,6 +61,18 @@ int controller_init()
                 controller_saveAsBinary("data.bin",listaEmpleados);
                 break;
             case 10:
+                controller_deleteAllEmployees(listaEmpleados);
+                break;
+            case 11:
+                if(!controller_deleteList(listaEmpleados))
+                {
+                    option = 13;
+                }
+                break;
+            case 12:
+                controller_filterBySalary(listaEmpleados);
+                break;
+            case 13:
                 break;
             default:
                 printf("Opcion Incorrecta\n");
@@ -245,5 +260,52 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
         retorno = 0;
     }
     fclose(pFile);
+    return retorno;
+}
+/** \brief Borra todos los empleados de la lista pero no elimina la lista
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si se borraron todos los empleados, 1 si no
+ *
+ */
+int controller_deleteAllEmployees(LinkedList* this)
+{
+    int retorno = -1;
+    if(!employee_deleteAll(this))
+    {
+        printf("\nSe han eliminado todos los empleados");
+        retorno = 0;
+    }
+    return retorno;
+}
+/** \brief Borra todos los empleados de la lista y la lista donde se encuentran
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si se borraron todos los empleados y la lista, 1 si no
+ *
+ */
+int controller_deleteList(LinkedList* this)
+{
+    int retorno = -1;
+    if(!employee_deleteList(this))
+    {
+        printf("\nSe han eliminado todos los empleados y la lista");
+        retorno = 0;
+    }
+    return retorno;
+}
+/** \brief Filtra los empleados por un salario
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si se realizo el filtrado correctamente, 1 si no.
+ *
+ */
+int controller_filterBySalary(LinkedList* this)
+{
+    int retorno = -1;
+    if(!employee_filterBySalary(this))
+    {
+        retorno = 0;
+    }
     return retorno;
 }

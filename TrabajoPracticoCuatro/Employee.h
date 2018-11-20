@@ -21,8 +21,8 @@ int employee_setSueldo(Employee* this,int sueldo);
 int employee_getSueldo(Employee* this,int* sueldo);
 int employee_setAll(Employee* this, int id,char* nombre, int horasTrabajadas, int sueldo);
 int employee_showInfo(Employee* this);
-Employee* employee_new();
-int employee_delete(Employee* this);
+Employee* employee_new();//
+int employee_delete(Employee* this);//
 Employee* employee_newConParametros(char* idString,char* nombre,int lenNombre,
                                     char* horasTrabajadasString,char* sueldoString);
 int employee_add(LinkedList* pArrayListEmployee);
@@ -36,5 +36,7 @@ int employee_criterioSortId(void* thisA, void* thisB);
 int employee_criterioSortNombre(void* thisA, void* thisB);
 int employee_criterioSortHorasTrabajadas(void* thisA, void* thisB);
 int employee_criterioSortSueldo(void* thisA, void* thisB);
+int employee_deleteAll(LinkedList* this);
+int employee_deleteList(LinkedList* this);
 
 #endif // EMPLOYEE_H_INCLUDED
