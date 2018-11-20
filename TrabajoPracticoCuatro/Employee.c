@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utn.h"
+static int salaryMax = 0;
+static int salaryMin = 0;
 /**
  * \brief Evalua si se trata de un id valido
  *
@@ -285,7 +287,8 @@ int employee_getSueldo(Employee* this,int* sueldo)
 int employee_setAll(Employee* this, int id,char* nombre, int horasTrabajadas, int sueldo)
 {
     int retorno = -1;
-    if( !employee_setNombre(this, nombre) &&
+    if( !employee_setId(this, id) &&
+        !employee_setNombre(this, nombre) &&
         !employee_setHorasTrabajadas(this, horasTrabajadas)&&
         !employee_setSueldo(this, sueldo))
     {
@@ -756,7 +759,7 @@ int employee_criterioSortSueldo(void* thisA, void* thisB)
 /** \brief Borra todos los empleados de la lista pero no elimina la lista
  *
  * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return int retorna 0 si se borraron todos los empleados, 1 si no
+ * \return int retorna 0 si se borraron todos los empleados, -1 si no
  *
  */
 int employee_deleteAll(LinkedList* this)
@@ -772,7 +775,7 @@ int employee_deleteAll(LinkedList* this)
 /** \brief Borra todos los empleados de la lista y la lista donde se encuentran
  *
  * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return int retorna 0 si se borraron todos los empleados y la lista, 1 si no
+ * \return int retorna 0 si se borraron todos los empleados y la lista, -1 si no
  *
  */
 int employee_deleteList(LinkedList* this)
@@ -785,18 +788,73 @@ int employee_deleteList(LinkedList* this)
     }
     return retorno;
 }
-/** \brief Filtra los empleados por un salario
+/** \brief Filtra los empleados por un salario maximo
  *
  * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return int retorna 0 si se realizo el filtrado correctamente, 1 si no.
+ * \return int retorna 0 si se realizo el filtrado correctamente, -1 si no.
  *
  */
-int employee_filterBySalary(LinkedList* this)
+int employee_filterBySalaryMax(LinkedList* this)
 {
     int retorno = -1;
-    if(!employee_filterBySalary(this))
+    LinkedList* listaFiltrada = NULL;
+    if(this != NULL)
     {
+        utn_getEnteroSoloNumeros(&salaryMax, 10,"Introduzca salario maximo\n", "Salario Invalido\n", 0);
+        listaFiltrada = ll_filter(this,employee_salaryMax);
+        employee_list(listaFiltrada);
         retorno = 0;
+    }
+    return retorno;
+}
+/** \brief Evalua si el empleado tiene un salario menor
+ *
+ * \param void* pEmployee es el empleado a evaluar
+ * \return int retorna 1 si es menor, 0 si no.
+ *
+ */
+int employee_salaryMax(void* pEmployeeVoid)
+{
+    int retorno = 0;
+    Employee* pEmployee = pEmployeeVoid;
+    if(pEmployee != NULL && pEmployee->sueldo <= salaryMax)
+    {
+        retorno = 1;
+    }
+    return retorno;
+}
+/** \brief Filtra los empleados por un salario minimo
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si se realizo el filtrado correctamente, -1 si no.
+ *
+ */
+int employee_filterBySalaryMin(LinkedList* this)
+{
+    int retorno = -1;
+    LinkedList* listaFiltrada = NULL;
+    if(this != NULL)
+    {
+        utn_getEnteroSoloNumeros(&salaryMin, 10,"Introduzca salario minimo\n", "Salario Invalido\n", 0);
+        listaFiltrada = ll_filter(this,employee_salaryMin);
+        employee_list(listaFiltrada);
+        retorno = 0;
+    }
+    return retorno;
+}
+/** \brief Evalua si el empleado tiene un salario mayor
+ *
+ * \param void* pEmployee es el empleado a evaluar
+ * \return int retorna 0 si es menor, -1 si no.
+ *
+ */
+int employee_salaryMin(void* pEmployeeVoid)
+{
+    int retorno = 0;
+    Employee* pEmployee = pEmployeeVoid;
+    if(pEmployee != NULL && pEmployee->sueldo >= salaryMin)
+    {
+        retorno = 1;
     }
     return retorno;
 }

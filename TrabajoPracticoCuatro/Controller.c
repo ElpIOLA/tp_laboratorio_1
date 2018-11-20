@@ -25,10 +25,11 @@ int controller_init()
                 "7. Ordenar empleados\n"
                 "8. Guardar empleados (modo texto)\n"
                 "9. Guardar empleados (modo binario)\n"
-                "10. Borrar todos los empleado\n"
+                "10. Borrar todos los empleados\n"
                 "11. Borrar lista y salir\n"
-                "12. Filtrar Por Sueldo\n"
-                "13. Salir\n");
+                "12. Filtrar Por Sueldo Maximo\n"
+                "13. Filtrar Por Sueldo Minimo\n"
+                "14. Salir\n");
         option = 0;
         utn_getEntero(&option, 5, "Seleccione...\n", "", 0);
         switch(option)
@@ -66,13 +67,16 @@ int controller_init()
             case 11:
                 if(!controller_deleteList(listaEmpleados))
                 {
-                    option = 13;
+                    option = 14;
                 }
                 break;
             case 12:
-                controller_filterBySalary(listaEmpleados);
+                controller_filterBySalaryMax(listaEmpleados);
                 break;
             case 13:
+                controller_filterBySalaryMin(listaEmpleados);
+                break;
+            case 14:
                 break;
             default:
                 printf("Opcion Incorrecta\n");
@@ -81,14 +85,14 @@ int controller_init()
         printf("\nPulse Enter para continuar");
         __fpurge(stdin);
         getchar();
-    }while(option != 10);
+    }while(option != 14);
     return 0;
 }
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto)
  *
  * \param path char* Es el path donde se encuentra el archivo
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se guardan los empleados cargados
- * \return int retorna 0 si el archivo se cargo correctamente, y 1 si no se pudo cargar.
+ * \return int retorna 0 si el archivo se cargo correctamente, y -1 si no se pudo cargar.
  *
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
@@ -108,7 +112,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  *
  * \param path char* Es el path donde se encuentra el archivo
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se guardan los empleados cargados
- * \return int retorna 0 si el archivo se cargo correctamente, y 1 si no se pudo cargar.
+ * \return int retorna 0 si el archivo se cargo correctamente, y -1 si no se pudo cargar.
  *
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
@@ -127,7 +131,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 /** \brief Realiza el alta de un nuevo empleado, agregandolo al final de la LinkedList.
  *
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se guarda el nuevo empleado.
- * \return retorna 0 si el empleado se cargo correctamente, y 1 si no se pudo cargar.
+ * \return retorna 0 si el empleado se cargo correctamente, y -1 si no se pudo cargar.
  *
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
@@ -148,7 +152,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 /** \brief Edita un empleado seleccionado a traves de un Id.
  *
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return retorna 0 si el empleado se edito correctamente, y 1 si no se pudo editar.
+ * \return retorna 0 si el empleado se edito correctamente, y -1 si no se pudo editar.
  *
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
@@ -168,7 +172,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 /** \brief Realiza la baja de un nuevo empleado, seleccionado a traves de un Id.
  *
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return retorna 0 si el empleado se borro correctamente, y 1 si no se pudo borrar.
+ * \return retorna 0 si el empleado se borro correctamente, y -1 si no se pudo borrar.
  *
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
@@ -188,7 +192,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 /** \brief  Lista todos los empleados de un LinkedList con toda su info
  *          (Id, Nombre, Horas Trabajadas, Sueldo)
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return retorna 0 si el empleado se mostro correctamente, y 1 si no se pudo mostrar.
+ * \return retorna 0 si el empleado se mostro correctamente, y -1 si no se pudo mostrar.
  *
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
@@ -205,7 +209,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 /** \brief  Ordena todos los empleados de un LinkedList seleccionando el criterio de orden.
  *
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return retorna 0 si se realizo el ordenamiento correctamente, y 1 si no se pudo ordenar.
+ * \return retorna 0 si se realizo el ordenamiento correctamente, y -1 si no se pudo ordenar.
  *
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
@@ -226,7 +230,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  *
  * \param path char* Es el path donde se guarda el archivo.
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return int retorna 0 si el archivo se guardo correctamente, y 1 si no se pudo guardar.
+ * \return int retorna 0 si el archivo se guardo correctamente, y -1 si no se pudo guardar.
  *
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
@@ -246,7 +250,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  *
  * \param path char* Es el path donde se guarda el archivo.
  * \param pArrayListEmployee LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return int retorna 0 si el archivo se guardo correctamente, y 1 si no se pudo guardar.
+ * \return int retorna 0 si el archivo se guardo correctamente, y -1 si no se pudo guardar.
  *
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
@@ -265,7 +269,7 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 /** \brief Borra todos los empleados de la lista pero no elimina la lista
  *
  * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return int retorna 0 si se borraron todos los empleados, 1 si no
+ * \return int retorna 0 si se borraron todos los empleados, -1 si no
  *
  */
 int controller_deleteAllEmployees(LinkedList* this)
@@ -281,7 +285,7 @@ int controller_deleteAllEmployees(LinkedList* this)
 /** \brief Borra todos los empleados de la lista y la lista donde se encuentran
  *
  * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return int retorna 0 si se borraron todos los empleados y la lista, 1 si no
+ * \return int retorna 0 si se borraron todos los empleados y la lista, -1 si no
  *
  */
 int controller_deleteList(LinkedList* this)
@@ -294,18 +298,34 @@ int controller_deleteList(LinkedList* this)
     }
     return retorno;
 }
-/** \brief Filtra los empleados por un salario
+/** \brief Filtra los empleados por un salario maximo
  *
  * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
- * \return int retorna 0 si se realizo el filtrado correctamente, 1 si no.
+ * \return int retorna 0 si se realizo el filtrado correctamente, -1 si no.
  *
  */
-int controller_filterBySalary(LinkedList* this)
+int controller_filterBySalaryMax(LinkedList* this)
 {
     int retorno = -1;
-    if(!employee_filterBySalary(this))
+    if(!employee_filterBySalaryMax(this))
     {
         retorno = 0;
     }
     return retorno;
 }
+/** \brief Filtra los empleados por un salario minimo
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return int retorna 0 si se realizo el filtrado correctamente, -1 si no.
+ *
+ */
+int controller_filterBySalaryMin(LinkedList* this)
+{
+    int retorno = -1;
+    if(!employee_filterBySalaryMin(this))
+    {
+        retorno = 0;
+    }
+    return retorno;
+}
+

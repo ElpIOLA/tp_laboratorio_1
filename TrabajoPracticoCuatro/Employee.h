@@ -38,5 +38,9 @@ int employee_criterioSortHorasTrabajadas(void* thisA, void* thisB);
 int employee_criterioSortSueldo(void* thisA, void* thisB);
 int employee_deleteAll(LinkedList* this);
 int employee_deleteList(LinkedList* this);
+int employee_filterBySalaryMax(LinkedList* this);
+int employee_salaryMax(void* pEmployeeVoid);
+int employee_filterBySalaryMin(LinkedList* this);
+int employee_salaryMin(void* pEmployeeVoid);
 
 #endif // EMPLOYEE_H_INCLUDED

@@ -1,0 +1,56 @@
+# depslib dependency file v1.0
+1542728575 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/Controller.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"string.h"
+	"LinkedList.h"
+	"parser.h"
+	"Controller.h"
+	"utn.h"
+	"Employee.h"
+
+1542687125 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/LinkedList.h
+
+1541353273 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/parser.h
+	"LinkedList.h"
+	<stdio.h>
+
+1542729013 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/Controller.h
+
+1541452933 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/utn.h
+
+1542728899 /home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/Employee.h
+	"LinkedList.h"
+
+1542727801 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/Employee.c
+	"Employee.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1542728178 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/LinkedList.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1542716696 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/main.c
+	"LinkedList.h"
+	"Controller.h"
+
+1541452942 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/utn.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"utn.h"
+
+1542727891 source:/home/leandroegea/Documents/tp_laboratorio_1/TrabajoPracticoCuatro/parser.c
+	"parser.h"
+	<stdio.h>
+	<stdlib.h>
+	"string.h"
+	"LinkedList.h"
+	"Employee.h"
+

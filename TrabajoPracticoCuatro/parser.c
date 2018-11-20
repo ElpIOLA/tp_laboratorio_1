@@ -40,7 +40,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
                                                     bufferNombre,
                                                     bufferHorasTrabajadas,
                                                     bufferSueldo);
-
             pEmpleado = employee_newConParametros(  bufferId,
                                                     bufferNombre,
                                                     128,
