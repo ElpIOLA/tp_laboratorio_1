@@ -194,7 +194,7 @@ int employee_setNombre(Employee* this,char* nombre)
 int employee_getNombre(Employee* this,char* nombre)
 {
     int retorno=-1;
-    if(this!=NULL && nombre!=NULL)
+    if(this!=NULL)
     {
         strcpy(nombre,this->nombre);
         retorno=0;
@@ -898,7 +898,7 @@ Employee* employee_backUpEmployee(LinkedList* this)
  * \return Employee*  retorna 0 si se guardo correctamente, -1 si no
  *
  */
-int employee_useBackUpEmployee(LinkedList* this, Employee* pEmpleado)
+int employee_useBackUpEmployee(LinkedList* this, Employee* pEmpleado,Employee* pEmpleadoAux)
 {
     int retorno = -1;
     void* pEmpleadoVoid = pEmpleado;
@@ -911,11 +911,10 @@ int employee_useBackUpEmployee(LinkedList* this, Employee* pEmpleado)
         }
         else if(!utn_getEnteroSoloNumeros(  &index,10,"Introduzca el indice donde desea introducirlo\n",
                                             "Indice erroneo",0) &&
-                !ll_push(this,index,pEmpleadoVoid))
+                !ll_push(this,index,pEmpleadoAux))
         {
             retorno = 0;
         }
     }
-    pEmpleado = pEmpleadoVoid;
     return retorno;
 }

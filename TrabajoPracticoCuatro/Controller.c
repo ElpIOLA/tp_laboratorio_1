@@ -17,6 +17,11 @@ int controller_init()
     LinkedList* listaEmpleadosBackUp = NULL;
     Employee* pEmpleadoBackUp = NULL;
     Employee* pEmpleadoBackUpAux = NULL;
+    int index;
+    int id;
+    char nombre[1024];
+    int horas;
+    int sueldo;
     do{
         system("clear");
         printf( "1. Carga de empleados (modo texto)\n"
@@ -90,14 +95,22 @@ int controller_init()
                 listaEmpleados = controller_backUpList(listaEmpleadosBackUp);
                 break;
             case 16:
-                pEmpleadoBackUpAux = controller_backUpEmployee(listaEmpleados);
-                if(pEmpleadoBackUpAux != NULL)
+                pEmpleadoBackUp = controller_backUpEmployee(listaEmpleados);
+                if( !employee_getId(pEmpleadoBackUp, &id) &&
+                    !employee_getIndexById(listaEmpleados, id, &index))
                 {
-                    pEmpleadoBackUp = pEmpleadoBackUpAux;
+                    if (!employee_getId(pEmpleadoBackUp, &id) &&
+                        !employee_getNombre(pEmpleadoBackUp, nombre) &&
+                        !employee_getHorasTrabajadas(pEmpleadoBackUp, &horas) &&
+                        !employee_getSueldo(pEmpleadoBackUp, &sueldo))
+                    {
+                        pEmpleadoBackUpAux = employee_new();
+                        employee_setAll(pEmpleadoBackUpAux,id,pEmpleadoBackUp->nombre,horas,sueldo);
+                    }
                 }
                 break;
             case 17:
-                controller_useBackUpEmployee(listaEmpleados, pEmpleadoBackUp);
+                controller_useBackUpEmployee(listaEmpleados, pEmpleadoBackUp, pEmpleadoBackUpAux);
                 break;
             case 18:
                 break;
@@ -398,13 +411,11 @@ Employee* controller_backUpEmployee(LinkedList* this)
  * \return Employee*  retorna 0 si se guardo correctamente, -1 si no
  *
  */
-int controller_useBackUpEmployee(LinkedList* this, Employee* pEmpleado)
+int controller_useBackUpEmployee(LinkedList* this, Employee* pEmpleado, Employee* pEmpleadoAux)
 {
     int retorno = -1;
-    employee_showInfo(pEmpleado);
-    if(!employee_useBackUpEmployee(this,pEmpleado))
+    if(!employee_useBackUpEmployee(this,pEmpleado,pEmpleadoAux))
     {
-        employee_showInfo(pEmpleado);
         retorno = 0;
         printf("Se realizo el guardado correctamente\n");
     }

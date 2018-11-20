@@ -17,5 +17,5 @@ int controller_filterBySalaryMax(LinkedList* this);
 int controller_filterBySalaryMin(LinkedList* this);
 LinkedList* controller_backUpList(LinkedList* this);
 Employee* controller_backUpEmployee(LinkedList* this);
-int controller_useBackUpEmployee(LinkedList* this, Employee* pEmpleado);
+int controller_useBackUpEmployee(LinkedList* this, Employee* pEmpleado, Employee* pEmpleadoAux);
 #endif
