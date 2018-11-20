@@ -17,11 +17,6 @@ int controller_init()
     LinkedList* listaEmpleadosBackUp = NULL;
     Employee* pEmpleadoBackUp = NULL;
     Employee* pEmpleadoBackUpAux = NULL;
-    int index;
-    int id;
-    char nombre[1024];
-    int horas;
-    int sueldo;
     do{
         system("clear");
         printf( "1. Carga de empleados (modo texto)\n"
@@ -96,18 +91,7 @@ int controller_init()
                 break;
             case 16:
                 pEmpleadoBackUp = controller_backUpEmployee(listaEmpleados);
-                if( !employee_getId(pEmpleadoBackUp, &id) &&
-                    !employee_getIndexById(listaEmpleados, id, &index))
-                {
-                    if (!employee_getId(pEmpleadoBackUp, &id) &&
-                        !employee_getNombre(pEmpleadoBackUp, nombre) &&
-                        !employee_getHorasTrabajadas(pEmpleadoBackUp, &horas) &&
-                        !employee_getSueldo(pEmpleadoBackUp, &sueldo))
-                    {
-                        pEmpleadoBackUpAux = employee_new();
-                        employee_setAll(pEmpleadoBackUpAux,id,pEmpleadoBackUp->nombre,horas,sueldo);
-                    }
-                }
+                pEmpleadoBackUpAux = controller_copyOfEmployee(listaEmpleados,pEmpleadoBackUp);
                 break;
             case 17:
                 controller_useBackUpEmployee(listaEmpleados, pEmpleadoBackUp, pEmpleadoBackUpAux);
@@ -422,6 +406,28 @@ int controller_useBackUpEmployee(LinkedList* this, Employee* pEmpleado, Employee
     else
     {
         printf("No se pudo guardar\n");
+    }
+    return retorno;
+}
+Employee* controller_copyOfEmployee(LinkedList* this,Employee* pEmpleado)
+{
+    Employee* retorno = NULL;
+    int index;
+    int id;
+    char nombre[1024];
+    int horas;
+    int sueldo;
+    if( !employee_getId(pEmpleado, &id) &&
+        !employee_getIndexById(this, id, &index))
+    {
+        if (!employee_getId(pEmpleado, &id) &&
+            !employee_getNombre(pEmpleado, nombre) &&
+            !employee_getHorasTrabajadas(pEmpleado, &horas) &&
+            !employee_getSueldo(pEmpleado, &sueldo))
+        {
+            retorno = employee_new();
+            employee_setAll(retorno,id,nombre,horas,sueldo);
+        }
     }
     return retorno;
 }
