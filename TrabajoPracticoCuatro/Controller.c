@@ -15,6 +15,8 @@ int controller_init()
     int option;
     LinkedList* listaEmpleados = ll_newLinkedList();
     LinkedList* listaEmpleadosBackUp = NULL;
+    Employee* pEmpleadoBackUp = NULL;
+    Employee* pEmpleadoBackUpAux = NULL;
     do{
         system("clear");
         printf( "1. Carga de empleados (modo texto)\n"
@@ -32,7 +34,9 @@ int controller_init()
                 "13. Filtrar Por Sueldo Minimo\n"
                 "14. Hacer Backup de la lista\n"
                 "15. Volver al ultimo Backup de la lista\n"
-                "20. Salir\n");
+                "16. Hacer backup de un empleado\n"
+                "17. Introducir backUp del empleado en la lista\n"
+                "18. Salir\n");
         option = 0;
         utn_getEntero(&option, 5, "Seleccione...\n", "", 0);
         switch(option)
@@ -70,7 +74,7 @@ int controller_init()
             case 11:
                 if(!controller_deleteList(listaEmpleados))
                 {
-                    option = 20;
+                    option = 18;
                 }
                 break;
             case 12:
@@ -85,7 +89,17 @@ int controller_init()
             case 15:
                 listaEmpleados = controller_backUpList(listaEmpleadosBackUp);
                 break;
-            case 20:
+            case 16:
+                pEmpleadoBackUpAux = controller_backUpEmployee(listaEmpleados);
+                if(pEmpleadoBackUpAux != NULL)
+                {
+                    pEmpleadoBackUp = pEmpleadoBackUpAux;
+                }
+                break;
+            case 17:
+                controller_useBackUpEmployee(listaEmpleados, pEmpleadoBackUp);
+                break;
+            case 18:
                 break;
             default:
                 printf("Opcion Incorrecta\n");
@@ -94,7 +108,7 @@ int controller_init()
         printf("\nPulse Enter para continuar");
         __fpurge(stdin);
         getchar();
-    }while(option != 20);
+    }while(option != 18);
     return 0;
 }
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto)
@@ -357,4 +371,46 @@ LinkedList* controller_backUpList(LinkedList* this)
     }
     return retorno;
 }
-
+/** \brief Realiza un backup de un empleado concreto
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return Employee*  retorna el puntero al empleado si se realizo correctamente,
+ *                      NULL si no.
+ *
+ */
+Employee* controller_backUpEmployee(LinkedList* this)
+{
+    Employee* retorno = employee_backUpEmployee(this);
+    if(retorno != NULL)
+    {
+        printf("Se realizo la copia correctamente\n");
+    }
+    else
+    {
+        printf("No se pudo realizar la copia\n");
+    }
+    return retorno;
+}
+/** \brief utiliza el empleado guardado para guardarlo en la lista
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \param pEmpleado Employee* Es el empleado a guardar
+ * \return Employee*  retorna 0 si se guardo correctamente, -1 si no
+ *
+ */
+int controller_useBackUpEmployee(LinkedList* this, Employee* pEmpleado)
+{
+    int retorno = -1;
+    employee_showInfo(pEmpleado);
+    if(!employee_useBackUpEmployee(this,pEmpleado))
+    {
+        employee_showInfo(pEmpleado);
+        retorno = 0;
+        printf("Se realizo el guardado correctamente\n");
+    }
+    else
+    {
+        printf("No se pudo guardar\n");
+    }
+    return retorno;
+}

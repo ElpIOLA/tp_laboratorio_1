@@ -43,5 +43,7 @@ int employee_salaryMax(void* pEmployeeVoid);
 int employee_filterBySalaryMin(LinkedList* this);
 int employee_salaryMin(void* pEmployeeVoid);
 LinkedList* employee_backUpList(LinkedList* this);
+Employee* employee_backUpEmployee(LinkedList* this);
+int employee_useBackUpEmployee(LinkedList* this, Employee* pEmpleado);
 
 #endif // EMPLOYEE_H_INCLUDED

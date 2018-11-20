@@ -874,3 +874,48 @@ LinkedList* employee_backUpList(LinkedList* this)
     }
     return retorno;
 }
+/** \brief Realiza un backup de un empleado concreto
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \return Employee*  retorna el puntero al empleado si se realizo correctamente,
+ *                      NULL si no.
+ *
+ */
+Employee* employee_backUpEmployee(LinkedList* this)
+{
+    Employee* retorno = NULL;
+    int index;
+    if(this != NULL && !employee_getById(this,&index))
+    {
+        retorno = ll_get(this, index);
+    }
+    return retorno;
+}
+/** \brief utiliza el empleado guardado para guardarlo en la lista
+ *
+ * \param this LinkedList* Es la LinkedList donde se encuentran los empleados.
+ * \param pEmpleado Employee* Es el empleado a guardar
+ * \return Employee*  retorna 0 si se guardo correctamente, -1 si no
+ *
+ */
+int employee_useBackUpEmployee(LinkedList* this, Employee* pEmpleado)
+{
+    int retorno = -1;
+    void* pEmpleadoVoid = pEmpleado;
+    int index;
+    if(this != NULL && pEmpleado != NULL)
+    {
+        if(ll_contains(this, pEmpleadoVoid))
+        {
+            printf("El empleado ya se encuentra en la lista\n");
+        }
+        else if(!utn_getEnteroSoloNumeros(  &index,10,"Introduzca el indice donde desea introducirlo\n",
+                                            "Indice erroneo",0) &&
+                !ll_push(this,index,pEmpleadoVoid))
+        {
+            retorno = 0;
+        }
+    }
+    pEmpleado = pEmpleadoVoid;
+    return retorno;
+}
