@@ -1,0 +1,93 @@
+# depslib dependency file v1.0
+1542908263 source:/home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/Compra.c
+	"Compra.h"
+	"utn.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+	"LinkedList.h"
+
+1542908286 /home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/Compra.h
+	"LinkedList.h"
+
+1542904438 /home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/LinkedList.h
+
+1542897515 /home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/utn.h
+
+1542904296 source:/home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/LinkedList.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1542907409 source:/home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Compra.h"
+	"Parser.h"
+	"utn.h"
+	"Compra.h"
+
+1542645012 /home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/Parser.h
+	"LinkedList.h"
+
+1542898479 source:/home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/utn.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"utn.h"
+
+1542902897 source:/home/leandroegea/Documents/clasesProgramacionLabPrimerCuatrimestre/EjercicioPre2doParcialV3/EjercicioPre2doParcialV3/Parser.c
+	"LinkedList.h"
+	"Compra.h"
+	"stdio.h"
+	"string.h"
+
+1542931725 source:/home/alumno/Documentos/PARCIAL2/LinkedList.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1542928607 /home/alumno/Documentos/PARCIAL2/LinkedList.h
+
+1542931611 source:/home/alumno/Documentos/PARCIAL2/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Venta.h"
+	"Parser.h"
+	"utn.h"
+	"string.h"
+
+1542929771 /home/alumno/Documentos/PARCIAL2/Venta.h
+	"LinkedList.h"
+
+1542930132 /home/alumno/Documentos/PARCIAL2/Parser.h
+	"LinkedList.h"
+
+1542929421 /home/alumno/Documentos/PARCIAL2/utn.h
+
+1542929441 source:/home/alumno/Documentos/PARCIAL2/utn.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"utn.h"
+
+1542932700 source:/home/alumno/Documentos/PARCIAL2/Venta.c
+	"Venta.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1542931969 source:/home/alumno/Documentos/PARCIAL2/Parser.c
+	"LinkedList.h"
+	"Venta.h"
+	"stdio.h"
+	"string.h"
+
